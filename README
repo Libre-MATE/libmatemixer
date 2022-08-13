@@ -25,10 +25,3 @@ you will need to pass --enable-oss=yes to configure.
 As the modules are loaded dynamically each time an application utilizes the
 library, it is possible to provide the modules in separate distribution
 packages.
-
-How to report bugs
-==================
-
-Bugs should be reported to the MATE bug tracking system on GitHub:
-
-   https://github.com/mate-desktop/libmatemixer/issues/
