@@ -14,7 +14,9 @@ m4_define(libmatemixer_version,
 
 AC_INIT([libmatemixer],
         [libmatemixer_version],
-        [https://mate-desktop.org])
+        [https://github.com/Libre-MATE/libmatemixer/issues],
+        [libmatemixer],
+        [https://github.com/Libre-MATE/libmatemixer/])
 
 # Before making a release, the LT_VERSION string should be modified.
 # The string is of the form C:R:A.
