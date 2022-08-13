@@ -16,6 +16,7 @@ AC_INIT([libmatemixer],
         [libmatemixer],
         [https://github.com/Libre-MATE/libmatemixer/])
 AC_PREREQ([2.60])
+AC_COPYRIGHT([Copyright (C) 2022 Libre MATE])
 
 # Before making a release, the LT_VERSION string should be modified.
 # The string is of the form C:R:A.
