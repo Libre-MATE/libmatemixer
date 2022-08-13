@@ -18,52 +18,45 @@
 #ifndef PULSE_PORT_H
 #define PULSE_PORT_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 #include <libmatemixer/matemixer.h>
 
 #include "pulse-types.h"
 
 G_BEGIN_DECLS
 
-#define PULSE_TYPE_PORT                         \
-        (pulse_port_get_type ())
-#define PULSE_PORT(o)                           \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), PULSE_TYPE_PORT, PulsePort))
-#define PULSE_IS_PORT(o)                        \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), PULSE_TYPE_PORT))
-#define PULSE_PORT_CLASS(k)                     \
-        (G_TYPE_CHECK_CLASS_CAST ((k), PULSE_TYPE_PORT, PulsePortClass))
-#define PULSE_IS_PORT_CLASS(k)                  \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), PULSE_TYPE_PORT))
-#define PULSE_PORT_GET_CLASS(o)                 \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), PULSE_IS_PORT, PulsePortClass))
+#define PULSE_TYPE_PORT (pulse_port_get_type())
+#define PULSE_PORT(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), PULSE_TYPE_PORT, PulsePort))
+#define PULSE_IS_PORT(o) (G_TYPE_CHECK_INSTANCE_TYPE((o), PULSE_TYPE_PORT))
+#define PULSE_PORT_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), PULSE_TYPE_PORT, PulsePortClass))
+#define PULSE_IS_PORT_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE((k), PULSE_TYPE_PORT))
+#define PULSE_PORT_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), PULSE_IS_PORT, PulsePortClass))
 
-typedef struct _PulsePortClass    PulsePortClass;
-typedef struct _PulsePortPrivate  PulsePortPrivate;
+typedef struct _PulsePortClass PulsePortClass;
+typedef struct _PulsePortPrivate PulsePortPrivate;
 
-struct _PulsePort
-{
-    MateMixerSwitchOption parent;
+struct _PulsePort {
+  MateMixerSwitchOption parent;
 
-    /*< private >*/
-    PulsePortPrivate *priv;
+  /*< private >*/
+  PulsePortPrivate *priv;
 };
 
-struct _PulsePortClass
-{
-    MateMixerSwitchOptionClass parent;
+struct _PulsePortClass {
+  MateMixerSwitchOptionClass parent;
 };
 
-GType        pulse_port_get_type     (void) G_GNUC_CONST;
+GType pulse_port_get_type(void) G_GNUC_CONST;
 
-PulsePort *  pulse_port_new          (const gchar *name,
-                                      const gchar *label,
-                                      const gchar *icon,
-                                      guint        priority);
+PulsePort *pulse_port_new(const gchar *name, const gchar *label,
+                          const gchar *icon, guint priority);
 
-const gchar *pulse_port_get_name     (PulsePort   *port);
-guint        pulse_port_get_priority (PulsePort   *port);
+const gchar *pulse_port_get_name(PulsePort *port);
+guint pulse_port_get_priority(PulsePort *port);
 
 G_END_DECLS
 

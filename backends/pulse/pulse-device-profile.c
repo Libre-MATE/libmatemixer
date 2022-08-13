@@ -15,68 +15,54 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <string.h>
-#include <glib.h>
+#include "pulse-device-profile.h"
+
 #include <glib-object.h>
-
-#include <libmatemixer/matemixer.h>
+#include <glib.h>
 #include <libmatemixer/matemixer-private.h>
-
+#include <libmatemixer/matemixer.h>
 #include <pulse/pulseaudio.h>
+#include <string.h>
 
 #include "pulse-connection.h"
 #include "pulse-device.h"
-#include "pulse-device-profile.h"
 
-struct _PulseDeviceProfilePrivate
-{
-    guint priority;
+struct _PulseDeviceProfilePrivate {
+  guint priority;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (PulseDeviceProfile, pulse_device_profile, MATE_MIXER_TYPE_SWITCH_OPTION)
+G_DEFINE_TYPE_WITH_PRIVATE(PulseDeviceProfile, pulse_device_profile,
+                           MATE_MIXER_TYPE_SWITCH_OPTION)
 
-static void
-pulse_device_profile_class_init (PulseDeviceProfileClass *klass)
-{
+static void pulse_device_profile_class_init(PulseDeviceProfileClass *klass) {}
+
+static void pulse_device_profile_init(PulseDeviceProfile *profile) {
+  profile->priv = pulse_device_profile_get_instance_private(profile);
 }
 
-static void
-pulse_device_profile_init (PulseDeviceProfile *profile)
-{
-    profile->priv = pulse_device_profile_get_instance_private (profile);
+PulseDeviceProfile *pulse_device_profile_new(const gchar *name,
+                                             const gchar *label,
+                                             guint priority) {
+  PulseDeviceProfile *profile;
+
+  g_return_val_if_fail(name != NULL, NULL);
+  g_return_val_if_fail(label != NULL, NULL);
+
+  profile = g_object_new(PULSE_TYPE_DEVICE_PROFILE, "name", name, "label",
+                         label, NULL);
+
+  profile->priv->priority = priority;
+  return profile;
 }
 
-PulseDeviceProfile *
-pulse_device_profile_new (const gchar *name,
-                          const gchar *label,
-                          guint        priority)
-{
-    PulseDeviceProfile *profile;
+const gchar *pulse_device_profile_get_name(PulseDeviceProfile *profile) {
+  g_return_val_if_fail(PULSE_IS_DEVICE_PROFILE(profile), NULL);
 
-    g_return_val_if_fail (name  != NULL, NULL);
-    g_return_val_if_fail (label != NULL, NULL);
-
-    profile = g_object_new (PULSE_TYPE_DEVICE_PROFILE,
-                            "name", name,
-                            "label", label,
-                            NULL);
-
-    profile->priv->priority = priority;
-    return profile;
+  return mate_mixer_switch_option_get_name(MATE_MIXER_SWITCH_OPTION(profile));
 }
 
-const gchar *
-pulse_device_profile_get_name (PulseDeviceProfile *profile)
-{
-    g_return_val_if_fail (PULSE_IS_DEVICE_PROFILE (profile), NULL);
+guint pulse_device_profile_get_priority(PulseDeviceProfile *profile) {
+  g_return_val_if_fail(PULSE_IS_DEVICE_PROFILE(profile), 0);
 
-    return mate_mixer_switch_option_get_name (MATE_MIXER_SWITCH_OPTION (profile));
-}
-
-guint
-pulse_device_profile_get_priority (PulseDeviceProfile *profile)
-{
-    g_return_val_if_fail (PULSE_IS_DEVICE_PROFILE (profile), 0);
-
-    return profile->priv->priority;
+  return profile->priv->priority;
 }

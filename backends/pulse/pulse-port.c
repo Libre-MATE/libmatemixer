@@ -15,69 +15,51 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <string.h>
-#include <glib.h>
-#include <glib-object.h>
-
-#include <libmatemixer/matemixer.h>
-#include <libmatemixer/matemixer-private.h>
-
-#include <pulse/pulseaudio.h>
-
-#include "pulse-connection.h"
 #include "pulse-port.h"
 
-struct _PulsePortPrivate
-{
-    guint priority;
+#include <glib-object.h>
+#include <glib.h>
+#include <libmatemixer/matemixer-private.h>
+#include <libmatemixer/matemixer.h>
+#include <pulse/pulseaudio.h>
+#include <string.h>
+
+#include "pulse-connection.h"
+
+struct _PulsePortPrivate {
+  guint priority;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (PulsePort, pulse_port, MATE_MIXER_TYPE_SWITCH_OPTION)
+G_DEFINE_TYPE_WITH_PRIVATE(PulsePort, pulse_port, MATE_MIXER_TYPE_SWITCH_OPTION)
 
-static void
-pulse_port_class_init (PulsePortClass *klass)
-{
+static void pulse_port_class_init(PulsePortClass *klass) {}
+
+static void pulse_port_init(PulsePort *port) {
+  port->priv = pulse_port_get_instance_private(port);
 }
 
-static void
-pulse_port_init (PulsePort *port)
-{
-    port->priv = pulse_port_get_instance_private (port);
+PulsePort *pulse_port_new(const gchar *name, const gchar *label,
+                          const gchar *icon, guint priority) {
+  PulsePort *port;
+
+  g_return_val_if_fail(name != NULL, NULL);
+  g_return_val_if_fail(label != NULL, NULL);
+
+  port = g_object_new(PULSE_TYPE_PORT, "name", name, "label", label, "icon",
+                      icon, NULL);
+
+  port->priv->priority = priority;
+  return port;
 }
 
-PulsePort *
-pulse_port_new (const gchar *name,
-                const gchar *label,
-                const gchar *icon,
-                guint        priority)
-{
-    PulsePort *port;
+const gchar *pulse_port_get_name(PulsePort *port) {
+  g_return_val_if_fail(PULSE_IS_PORT(port), NULL);
 
-    g_return_val_if_fail (name  != NULL, NULL);
-    g_return_val_if_fail (label != NULL, NULL);
-
-    port = g_object_new (PULSE_TYPE_PORT,
-                         "name", name,
-                         "label", label,
-                         "icon", icon,
-                         NULL);
-
-    port->priv->priority = priority;
-    return port;
+  return mate_mixer_switch_option_get_name(MATE_MIXER_SWITCH_OPTION(port));
 }
 
-const gchar *
-pulse_port_get_name (PulsePort *port)
-{
-    g_return_val_if_fail (PULSE_IS_PORT (port), NULL);
+guint pulse_port_get_priority(PulsePort *port) {
+  g_return_val_if_fail(PULSE_IS_PORT(port), 0);
 
-    return mate_mixer_switch_option_get_name (MATE_MIXER_SWITCH_OPTION (port));
-}
-
-guint
-pulse_port_get_priority (PulsePort *port)
-{
-    g_return_val_if_fail (PULSE_IS_PORT (port), 0);
-
-    return port->priv->priority;
+  return port->priv->priority;
 }

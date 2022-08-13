@@ -18,42 +18,42 @@
 #ifndef MATEMIXER_STREAM_SWITCH_H
 #define MATEMIXER_STREAM_SWITCH_H
 
-#include <glib.h>
 #include <glib-object.h>
-
+#include <glib.h>
 #include <libmatemixer/matemixer-switch.h>
 #include <libmatemixer/matemixer-types.h>
 
 G_BEGIN_DECLS
 
-#define MATE_MIXER_TYPE_STREAM_SWITCH           \
-        (mate_mixer_stream_switch_get_type ())
-#define MATE_MIXER_STREAM_SWITCH(o)             \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), MATE_MIXER_TYPE_STREAM_SWITCH, MateMixerStreamSwitch))
-#define MATE_MIXER_IS_STREAM_SWITCH(o)          \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), MATE_MIXER_TYPE_STREAM_SWITCH))
-#define MATE_MIXER_STREAM_SWITCH_CLASS(k)      \
-        (G_TYPE_CHECK_CLASS_CAST ((k), MATE_MIXER_TYPE_STREAM_SWITCH, MateMixerStreamSwitchClass))
-#define MATE_MIXER_IS_STREAM_SWITCH_CLASS(k)   \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), MATE_MIXER_TYPE_STREAM_SWITCH))
-#define MATE_MIXER_STREAM_SWITCH_GET_CLASS(o)  \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), MATE_MIXER_TYPE_STREAM_SWITCH, MateMixerStreamSwitchClass))
+#define MATE_MIXER_TYPE_STREAM_SWITCH (mate_mixer_stream_switch_get_type())
+#define MATE_MIXER_STREAM_SWITCH(o)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), MATE_MIXER_TYPE_STREAM_SWITCH, \
+                              MateMixerStreamSwitch))
+#define MATE_MIXER_IS_STREAM_SWITCH(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), MATE_MIXER_TYPE_STREAM_SWITCH))
+#define MATE_MIXER_STREAM_SWITCH_CLASS(k)                      \
+  (G_TYPE_CHECK_CLASS_CAST((k), MATE_MIXER_TYPE_STREAM_SWITCH, \
+                           MateMixerStreamSwitchClass))
+#define MATE_MIXER_IS_STREAM_SWITCH_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), MATE_MIXER_TYPE_STREAM_SWITCH))
+#define MATE_MIXER_STREAM_SWITCH_GET_CLASS(o)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((o), MATE_MIXER_TYPE_STREAM_SWITCH, \
+                             MateMixerStreamSwitchClass))
 
-typedef struct _MateMixerStreamSwitchClass    MateMixerStreamSwitchClass;
-typedef struct _MateMixerStreamSwitchPrivate  MateMixerStreamSwitchPrivate;
+typedef struct _MateMixerStreamSwitchClass MateMixerStreamSwitchClass;
+typedef struct _MateMixerStreamSwitchPrivate MateMixerStreamSwitchPrivate;
 
 /**
  * MateMixerStreamSwitch:
  *
- * The #MateMixerStreamSwitch structure contains only private data and should only
- * be accessed using the provided API.
+ * The #MateMixerStreamSwitch structure contains only private data and should
+ * only be accessed using the provided API.
  */
-struct _MateMixerStreamSwitch
-{
-    MateMixerSwitch object;
+struct _MateMixerStreamSwitch {
+  MateMixerSwitch object;
 
-    /*< private >*/
-    MateMixerStreamSwitchPrivate *priv;
+  /*< private >*/
+  MateMixerStreamSwitchPrivate *priv;
 };
 
 /**
@@ -62,16 +62,18 @@ struct _MateMixerStreamSwitch
  *
  * The class structure for #MateMixerStreamSwitch.
  */
-struct _MateMixerStreamSwitchClass
-{
-    MateMixerSwitchClass parent_class;
+struct _MateMixerStreamSwitchClass {
+  MateMixerSwitchClass parent_class;
 };
 
-GType                      mate_mixer_stream_switch_get_type   (void) G_GNUC_CONST;
+GType mate_mixer_stream_switch_get_type(void) G_GNUC_CONST;
 
-MateMixerStreamSwitchFlags mate_mixer_stream_switch_get_flags  (MateMixerStreamSwitch *swtch);
-MateMixerStreamSwitchRole  mate_mixer_stream_switch_get_role   (MateMixerStreamSwitch *swtch);
-MateMixerStream *          mate_mixer_stream_switch_get_stream (MateMixerStreamSwitch *swtch);
+MateMixerStreamSwitchFlags mate_mixer_stream_switch_get_flags(
+    MateMixerStreamSwitch *swtch);
+MateMixerStreamSwitchRole mate_mixer_stream_switch_get_role(
+    MateMixerStreamSwitch *swtch);
+MateMixerStream *mate_mixer_stream_switch_get_stream(
+    MateMixerStreamSwitch *swtch);
 
 G_END_DECLS
 

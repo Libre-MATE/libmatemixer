@@ -18,38 +18,38 @@
 #ifndef ALSA_CONSTANTS_H
 #define ALSA_CONSTANTS_H
 
-#include <glib.h>
 #include <alsa/asoundlib.h>
+#include <glib.h>
 #include <libmatemixer/matemixer.h>
 
 G_BEGIN_DECLS
 
 typedef struct {
-    gchar                     *name;
-    gchar                     *label;
-    MateMixerStreamControlRole role;
-    gboolean                   use_default_input;
-    gboolean                   use_default_output;
+  gchar *name;
+  gchar *label;
+  MateMixerStreamControlRole role;
+  gboolean use_default_input;
+  gboolean use_default_output;
 } AlsaControlInfo;
 
 typedef struct {
-    gchar                     *name;
-    gchar                     *label;
-    MateMixerStreamSwitchRole  role;
+  gchar *name;
+  gchar *label;
+  MateMixerStreamSwitchRole role;
 } AlsaSwitchInfo;
 
 typedef struct {
-    gchar *name;
-    gchar *label;
-    gchar *icon;
+  gchar *name;
+  gchar *label;
+  gchar *icon;
 } AlsaSwitchOptionInfo;
 
-extern const AlsaControlInfo                alsa_controls[];
-extern const AlsaSwitchInfo                 alsa_switches[];
-extern const AlsaSwitchOptionInfo           alsa_switch_options[];
+extern const AlsaControlInfo alsa_controls[];
+extern const AlsaSwitchInfo alsa_switches[];
+extern const AlsaSwitchOptionInfo alsa_switch_options[];
 
-extern const MateMixerChannelPosition       alsa_channel_map_from[];
-extern const snd_mixer_selem_channel_id_t   alsa_channel_map_to[];
+extern const MateMixerChannelPosition alsa_channel_map_from[];
+extern const snd_mixer_selem_channel_id_t alsa_channel_map_to[];
 
 G_END_DECLS
 

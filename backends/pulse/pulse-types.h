@@ -20,25 +20,25 @@
 
 G_BEGIN_DECLS
 
-typedef struct _PulseBackend            PulseBackend;
-typedef struct _PulseConnection         PulseConnection;
-typedef struct _PulseDevice             PulseDevice;
-typedef struct _PulseDeviceProfile      PulseDeviceProfile;
-typedef struct _PulseDeviceSwitch       PulseDeviceSwitch;
-typedef struct _PulseExtStream          PulseExtStream;
-typedef struct _PulseMonitor            PulseMonitor;
-typedef struct _PulsePort               PulsePort;
-typedef struct _PulsePortSwitch         PulsePortSwitch;
-typedef struct _PulseSink               PulseSink;
-typedef struct _PulseSinkControl        PulseSinkControl;
-typedef struct _PulseSinkInput          PulseSinkInput;
-typedef struct _PulseSinkSwitch         PulseSinkSwitch;
-typedef struct _PulseSource             PulseSource;
-typedef struct _PulseSourceControl      PulseSourceControl;
-typedef struct _PulseSourceOutput       PulseSourceOutput;
-typedef struct _PulseSourceSwitch       PulseSourceSwitch;
-typedef struct _PulseStream             PulseStream;
-typedef struct _PulseStreamControl      PulseStreamControl;
+typedef struct _PulseBackend PulseBackend;
+typedef struct _PulseConnection PulseConnection;
+typedef struct _PulseDevice PulseDevice;
+typedef struct _PulseDeviceProfile PulseDeviceProfile;
+typedef struct _PulseDeviceSwitch PulseDeviceSwitch;
+typedef struct _PulseExtStream PulseExtStream;
+typedef struct _PulseMonitor PulseMonitor;
+typedef struct _PulsePort PulsePort;
+typedef struct _PulsePortSwitch PulsePortSwitch;
+typedef struct _PulseSink PulseSink;
+typedef struct _PulseSinkControl PulseSinkControl;
+typedef struct _PulseSinkInput PulseSinkInput;
+typedef struct _PulseSinkSwitch PulseSinkSwitch;
+typedef struct _PulseSource PulseSource;
+typedef struct _PulseSourceControl PulseSourceControl;
+typedef struct _PulseSourceOutput PulseSourceOutput;
+typedef struct _PulseSourceSwitch PulseSourceSwitch;
+typedef struct _PulseStream PulseStream;
+typedef struct _PulseStreamControl PulseStreamControl;
 
 G_END_DECLS
 

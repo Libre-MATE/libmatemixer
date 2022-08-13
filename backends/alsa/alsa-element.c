@@ -15,55 +15,43 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib.h>
-#include <glib-object.h>
-#include <alsa/asoundlib.h>
-
 #include "alsa-element.h"
 
-G_DEFINE_INTERFACE (AlsaElement, alsa_element, G_TYPE_OBJECT)
+#include <alsa/asoundlib.h>
+#include <glib-object.h>
+#include <glib.h>
 
-static void
-alsa_element_default_init (AlsaElementInterface *iface)
-{
+G_DEFINE_INTERFACE(AlsaElement, alsa_element, G_TYPE_OBJECT)
+
+static void alsa_element_default_init(AlsaElementInterface *iface) {}
+
+snd_mixer_elem_t *alsa_element_get_snd_element(AlsaElement *element) {
+  g_return_val_if_fail(ALSA_IS_ELEMENT(element), NULL);
+
+  return ALSA_ELEMENT_GET_INTERFACE(element)->get_snd_element(element);
 }
 
-snd_mixer_elem_t *
-alsa_element_get_snd_element (AlsaElement *element)
-{
-    g_return_val_if_fail (ALSA_IS_ELEMENT (element), NULL);
+void alsa_element_set_snd_element(AlsaElement *element, snd_mixer_elem_t *el) {
+  g_return_if_fail(ALSA_IS_ELEMENT(element));
 
-    return ALSA_ELEMENT_GET_INTERFACE (element)->get_snd_element (element);
+  ALSA_ELEMENT_GET_INTERFACE(element)->set_snd_element(element, el);
 }
 
-void
-alsa_element_set_snd_element (AlsaElement *element, snd_mixer_elem_t *el)
-{
-    g_return_if_fail (ALSA_IS_ELEMENT (element));
+gboolean alsa_element_load(AlsaElement *element) {
+  g_return_val_if_fail(ALSA_IS_ELEMENT(element), FALSE);
 
-    ALSA_ELEMENT_GET_INTERFACE (element)->set_snd_element (element, el);
+  return ALSA_ELEMENT_GET_INTERFACE(element)->load(element);
 }
 
-gboolean
-alsa_element_load (AlsaElement *element)
-{
-    g_return_val_if_fail (ALSA_IS_ELEMENT (element), FALSE);
+void alsa_element_close(AlsaElement *element) {
+  AlsaElementInterface *iface;
 
-    return ALSA_ELEMENT_GET_INTERFACE (element)->load (element);
-}
+  g_return_if_fail(ALSA_IS_ELEMENT(element));
 
-void
-alsa_element_close (AlsaElement *element)
-{
-    AlsaElementInterface *iface;
+  /* Close the element by unsetting the ALSA element and optionally calling
+   * a closing function */
+  alsa_element_set_snd_element(element, NULL);
 
-    g_return_if_fail (ALSA_IS_ELEMENT (element));
-
-    /* Close the element by unsetting the ALSA element and optionally calling
-     * a closing function */
-    alsa_element_set_snd_element (element, NULL);
-
-    iface = ALSA_ELEMENT_GET_INTERFACE (element);
-    if (iface->close != NULL)
-        iface->close (element);
+  iface = ALSA_ELEMENT_GET_INTERFACE(element);
+  if (iface->close != NULL) iface->close(element);
 }

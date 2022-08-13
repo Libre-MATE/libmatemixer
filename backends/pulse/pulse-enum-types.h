@@ -18,8 +18,8 @@
 #ifndef PULSE_ENUM_TYPES_H
 #define PULSE_ENUM_TYPES_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 
 G_BEGIN_DECLS
 
@@ -28,8 +28,8 @@ G_BEGIN_DECLS
  * https://bugzilla.gnome.org/show_bug.cgi?id=621942
  */
 
-#define PULSE_TYPE_CONNECTION_STATE (pulse_connection_state_get_type ())
-GType pulse_connection_state_get_type (void) G_GNUC_CONST;
+#define PULSE_TYPE_CONNECTION_STATE (pulse_connection_state_get_type())
+GType pulse_connection_state_get_type(void) G_GNUC_CONST;
 
 G_END_DECLS
 

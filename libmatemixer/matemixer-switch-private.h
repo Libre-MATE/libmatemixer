@@ -24,8 +24,8 @@
 
 G_BEGIN_DECLS
 
-void _mate_mixer_switch_set_active_option (MateMixerSwitch       *sw,
-                                           MateMixerSwitchOption *option);
+void _mate_mixer_switch_set_active_option(MateMixerSwitch *sw,
+                                          MateMixerSwitchOption *option);
 
 G_END_DECLS
 

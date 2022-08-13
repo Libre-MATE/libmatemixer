@@ -15,114 +15,102 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib.h>
-#include <glib-object.h>
-
-#include "matemixer-enums.h"
-#include "matemixer-enum-types.h"
-#include "matemixer-stream-control.h"
 #include "matemixer-stored-control.h"
 
-struct _MateMixerStoredControlPrivate
-{
-    MateMixerDirection direction;
+#include <glib-object.h>
+#include <glib.h>
+
+#include "matemixer-enum-types.h"
+#include "matemixer-enums.h"
+#include "matemixer-stream-control.h"
+
+struct _MateMixerStoredControlPrivate {
+  MateMixerDirection direction;
 };
 
-enum {
-    PROP_0,
-    PROP_DIRECTION,
-    N_PROPERTIES
+enum { PROP_0, PROP_DIRECTION, N_PROPERTIES };
+
+static GParamSpec *properties[N_PROPERTIES] = {
+    NULL,
 };
 
-static GParamSpec *properties[N_PROPERTIES] = { NULL, };
+static void mate_mixer_stored_control_get_property(GObject *object,
+                                                   guint param_id,
+                                                   GValue *value,
+                                                   GParamSpec *pspec);
+static void mate_mixer_stored_control_set_property(GObject *object,
+                                                   guint param_id,
+                                                   const GValue *value,
+                                                   GParamSpec *pspec);
 
-static void mate_mixer_stored_control_get_property (GObject                     *object,
-                                                    guint                        param_id,
-                                                    GValue                      *value,
-                                                    GParamSpec                  *pspec);
-static void mate_mixer_stored_control_set_property (GObject                     *object,
-                                                    guint                        param_id,
-                                                    const GValue                *value,
-                                                    GParamSpec                  *pspec);
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(MateMixerStoredControl,
+                                    mate_mixer_stored_control,
+                                    MATE_MIXER_TYPE_STREAM_CONTROL)
 
-G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (MateMixerStoredControl, mate_mixer_stored_control, MATE_MIXER_TYPE_STREAM_CONTROL)
+static void mate_mixer_stored_control_class_init(
+    MateMixerStoredControlClass *klass) {
+  GObjectClass *object_class;
 
-static void
-mate_mixer_stored_control_class_init (MateMixerStoredControlClass *klass)
-{
-    GObjectClass *object_class;
+  object_class = G_OBJECT_CLASS(klass);
+  object_class->get_property = mate_mixer_stored_control_get_property;
+  object_class->set_property = mate_mixer_stored_control_set_property;
 
-    object_class = G_OBJECT_CLASS (klass);
-    object_class->get_property = mate_mixer_stored_control_get_property;
-    object_class->set_property = mate_mixer_stored_control_set_property;
+  properties[PROP_DIRECTION] = g_param_spec_enum(
+      "direction", "Direction", "Direction of the stored control",
+      MATE_MIXER_TYPE_DIRECTION, MATE_MIXER_DIRECTION_UNKNOWN,
+      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
-    properties[PROP_DIRECTION] =
-        g_param_spec_enum ("direction",
-                           "Direction",
-                           "Direction of the stored control",
-                           MATE_MIXER_TYPE_DIRECTION,
-                           MATE_MIXER_DIRECTION_UNKNOWN,
-                           G_PARAM_READWRITE |
-                           G_PARAM_CONSTRUCT_ONLY |
-                           G_PARAM_STATIC_STRINGS);
-
-    g_object_class_install_properties (object_class, N_PROPERTIES, properties);
+  g_object_class_install_properties(object_class, N_PROPERTIES, properties);
 }
 
-static void
-mate_mixer_stored_control_get_property (GObject    *object,
-                                        guint       param_id,
-                                        GValue     *value,
-                                        GParamSpec *pspec)
-{
-    MateMixerStoredControl *control;
+static void mate_mixer_stored_control_get_property(GObject *object,
+                                                   guint param_id,
+                                                   GValue *value,
+                                                   GParamSpec *pspec) {
+  MateMixerStoredControl *control;
 
-    control = MATE_MIXER_STORED_CONTROL (object);
+  control = MATE_MIXER_STORED_CONTROL(object);
 
-    switch (param_id) {
+  switch (param_id) {
     case PROP_DIRECTION:
-        g_value_set_enum (value, control->priv->direction);
-        break;
+      g_value_set_enum(value, control->priv->direction);
+      break;
     default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
-        break;
-    }
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, param_id, pspec);
+      break;
+  }
 }
 
-static void
-mate_mixer_stored_control_set_property (GObject      *object,
-                                        guint         param_id,
-                                        const GValue *value,
-                                        GParamSpec   *pspec)
-{
-    MateMixerStoredControl *control;
+static void mate_mixer_stored_control_set_property(GObject *object,
+                                                   guint param_id,
+                                                   const GValue *value,
+                                                   GParamSpec *pspec) {
+  MateMixerStoredControl *control;
 
-    control = MATE_MIXER_STORED_CONTROL (object);
+  control = MATE_MIXER_STORED_CONTROL(object);
 
-    switch (param_id) {
+  switch (param_id) {
     case PROP_DIRECTION:
-        control->priv->direction = g_value_get_enum (value);
-        break;
+      control->priv->direction = g_value_get_enum(value);
+      break;
     default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
-        break;
-    }
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, param_id, pspec);
+      break;
+  }
 }
 
-static void
-mate_mixer_stored_control_init (MateMixerStoredControl *control)
-{
-    control->priv = mate_mixer_stored_control_get_instance_private (control);
+static void mate_mixer_stored_control_init(MateMixerStoredControl *control) {
+  control->priv = mate_mixer_stored_control_get_instance_private(control);
 }
 
 /**
  * mate_mixer_stored_control_get_direction:
  * @control: a #MateMixerStoredControl
  */
-MateMixerDirection
-mate_mixer_stored_control_get_direction (MateMixerStoredControl *control)
-{
-    g_return_val_if_fail (MATE_MIXER_IS_STORED_CONTROL (control), MATE_MIXER_DIRECTION_UNKNOWN);
+MateMixerDirection mate_mixer_stored_control_get_direction(
+    MateMixerStoredControl *control) {
+  g_return_val_if_fail(MATE_MIXER_IS_STORED_CONTROL(control),
+                       MATE_MIXER_DIRECTION_UNKNOWN);
 
-    return control->priv->direction;
+  return control->priv->direction;
 }

@@ -16,6 +16,7 @@
  */
 
 #include "matemixer-app-info.h"
+
 #include "matemixer-app-info-private.h"
 
 /**
@@ -36,9 +37,8 @@
  * The #MateMixerAppInfo structure contains only private data and should only
  * be accessed using the provided API.
  */
-G_DEFINE_BOXED_TYPE (MateMixerAppInfo, mate_mixer_app_info,
-                     _mate_mixer_app_info_copy,
-                     _mate_mixer_app_info_free)
+G_DEFINE_BOXED_TYPE(MateMixerAppInfo, mate_mixer_app_info,
+                    _mate_mixer_app_info_copy, _mate_mixer_app_info_free)
 
 /**
  * mate_mixer_app_info_get_name:
@@ -48,12 +48,10 @@ G_DEFINE_BOXED_TYPE (MateMixerAppInfo, mate_mixer_app_info,
  *
  * Returns: name of the application or %NULL if it is unknown.
  */
-const gchar *
-mate_mixer_app_info_get_name (MateMixerAppInfo *info)
-{
-    g_return_val_if_fail (info != NULL, NULL);
+const gchar *mate_mixer_app_info_get_name(MateMixerAppInfo *info) {
+  g_return_val_if_fail(info != NULL, NULL);
 
-    return info->name;
+  return info->name;
 }
 
 /**
@@ -65,12 +63,10 @@ mate_mixer_app_info_get_name (MateMixerAppInfo *info)
  *
  * Returns: identifier of the application or %NULL if it is unknown.
  */
-const gchar *
-mate_mixer_app_info_get_id (MateMixerAppInfo *info)
-{
-    g_return_val_if_fail (info != NULL, NULL);
+const gchar *mate_mixer_app_info_get_id(MateMixerAppInfo *info) {
+  g_return_val_if_fail(info != NULL, NULL);
 
-    return info->id;
+  return info->id;
 }
 
 /**
@@ -81,12 +77,10 @@ mate_mixer_app_info_get_id (MateMixerAppInfo *info)
  *
  * Returns: version of the application or %NULL if it is unknown.
  */
-const gchar *
-mate_mixer_app_info_get_version (MateMixerAppInfo *info)
-{
-    g_return_val_if_fail (info != NULL, NULL);
+const gchar *mate_mixer_app_info_get_version(MateMixerAppInfo *info) {
+  g_return_val_if_fail(info != NULL, NULL);
 
-    return info->version;
+  return info->version;
 }
 
 /**
@@ -97,12 +91,10 @@ mate_mixer_app_info_get_version (MateMixerAppInfo *info)
  *
  * Returns: icon name of the application or %NULL if it is unknown.
  */
-const gchar *
-mate_mixer_app_info_get_icon (MateMixerAppInfo *info)
-{
-    g_return_val_if_fail (info != NULL, NULL);
+const gchar *mate_mixer_app_info_get_icon(MateMixerAppInfo *info) {
+  g_return_val_if_fail(info != NULL, NULL);
 
-    return info->icon;
+  return info->icon;
 }
 
 /**
@@ -112,10 +104,8 @@ mate_mixer_app_info_get_icon (MateMixerAppInfo *info)
  *
  * Returns: a new #MateMixerAppInfo.
  */
-MateMixerAppInfo *
-_mate_mixer_app_info_new (void)
-{
-    return g_slice_new0 (MateMixerAppInfo);
+MateMixerAppInfo *_mate_mixer_app_info_new(void) {
+  return g_slice_new0(MateMixerAppInfo);
 }
 
 /**
@@ -125,14 +115,12 @@ _mate_mixer_app_info_new (void)
  *
  * Sets the name of the application described by @info.
  */
-void
-_mate_mixer_app_info_set_name (MateMixerAppInfo *info, const gchar *name)
-{
-    g_return_if_fail (info != NULL);
+void _mate_mixer_app_info_set_name(MateMixerAppInfo *info, const gchar *name) {
+  g_return_if_fail(info != NULL);
 
-    g_free (info->name);
+  g_free(info->name);
 
-    info->name = g_strdup (name);
+  info->name = g_strdup(name);
 }
 
 /**
@@ -142,14 +130,12 @@ _mate_mixer_app_info_set_name (MateMixerAppInfo *info, const gchar *name)
  *
  * Sets the identifier of the application described by @info.
  */
-void
-_mate_mixer_app_info_set_id (MateMixerAppInfo *info, const gchar *id)
-{
-    g_return_if_fail (info != NULL);
+void _mate_mixer_app_info_set_id(MateMixerAppInfo *info, const gchar *id) {
+  g_return_if_fail(info != NULL);
 
-    g_free (info->id);
+  g_free(info->id);
 
-    info->id = g_strdup (id);
+  info->id = g_strdup(id);
 }
 
 /**
@@ -159,14 +145,13 @@ _mate_mixer_app_info_set_id (MateMixerAppInfo *info, const gchar *id)
  *
  * Sets the version of the application described by @info.
  */
-void
-_mate_mixer_app_info_set_version (MateMixerAppInfo *info, const gchar *version)
-{
-    g_return_if_fail (info != NULL);
+void _mate_mixer_app_info_set_version(MateMixerAppInfo *info,
+                                      const gchar *version) {
+  g_return_if_fail(info != NULL);
 
-    g_free (info->version);
+  g_free(info->version);
 
-    info->version = g_strdup (version);
+  info->version = g_strdup(version);
 }
 
 /**
@@ -176,14 +161,12 @@ _mate_mixer_app_info_set_version (MateMixerAppInfo *info, const gchar *version)
  *
  * Sets the XDG icon name of the application described by @info.
  */
-void
-_mate_mixer_app_info_set_icon (MateMixerAppInfo *info, const gchar *icon)
-{
-    g_return_if_fail (info != NULL);
+void _mate_mixer_app_info_set_icon(MateMixerAppInfo *info, const gchar *icon) {
+  g_return_if_fail(info != NULL);
 
-    g_free (info->icon);
+  g_free(info->icon);
 
-    info->icon = g_strdup (icon);
+  info->icon = g_strdup(icon);
 }
 
 /**
@@ -194,20 +177,18 @@ _mate_mixer_app_info_set_icon (MateMixerAppInfo *info, const gchar *icon)
  *
  * Returns: a copy of the given @info.
  */
-MateMixerAppInfo *
-_mate_mixer_app_info_copy (MateMixerAppInfo *info)
-{
-    MateMixerAppInfo *info2;
+MateMixerAppInfo *_mate_mixer_app_info_copy(MateMixerAppInfo *info) {
+  MateMixerAppInfo *info2;
 
-    g_return_val_if_fail (info != NULL, NULL);
+  g_return_val_if_fail(info != NULL, NULL);
 
-    info2 = _mate_mixer_app_info_new ();
-    info2->name     = g_strdup (info->name);
-    info2->id       = g_strdup (info->id);
-    info2->version  = g_strdup (info->version);
-    info2->icon     = g_strdup (info->icon);
+  info2 = _mate_mixer_app_info_new();
+  info2->name = g_strdup(info->name);
+  info2->id = g_strdup(info->id);
+  info2->version = g_strdup(info->version);
+  info2->icon = g_strdup(info->icon);
 
-    return info2;
+  return info2;
 }
 
 /**
@@ -216,15 +197,13 @@ _mate_mixer_app_info_copy (MateMixerAppInfo *info)
  *
  * Frees the #MateMixerAppInfo.
  */
-void
-_mate_mixer_app_info_free (MateMixerAppInfo *info)
-{
-    g_return_if_fail (info != NULL);
+void _mate_mixer_app_info_free(MateMixerAppInfo *info) {
+  g_return_if_fail(info != NULL);
 
-    g_free (info->name);
-    g_free (info->id);
-    g_free (info->version);
-    g_free (info->icon);
+  g_free(info->name);
+  g_free(info->id);
+  g_free(info->version);
+  g_free(info->icon);
 
-    g_slice_free (MateMixerAppInfo, info);
+  g_slice_free(MateMixerAppInfo, info);
 }

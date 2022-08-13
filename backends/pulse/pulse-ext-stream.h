@@ -18,55 +18,51 @@
 #ifndef PULSE_EXT_STREAM_H
 #define PULSE_EXT_STREAM_H
 
-#include <glib.h>
 #include <glib-object.h>
-
-#include <pulse/pulseaudio.h>
+#include <glib.h>
 #include <pulse/ext-stream-restore.h>
+#include <pulse/pulseaudio.h>
 
 #include "pulse-stream-control.h"
 #include "pulse-types.h"
 
 G_BEGIN_DECLS
 
-#define PULSE_TYPE_EXT_STREAM                   \
-        (pulse_ext_stream_get_type ())
-#define PULSE_EXT_STREAM(o)                     \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), PULSE_TYPE_EXT_STREAM, PulseExtStream))
-#define PULSE_IS_EXT_STREAM(o)                  \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), PULSE_TYPE_EXT_STREAM))
-#define PULSE_EXT_STREAM_CLASS(k)               \
-        (G_TYPE_CHECK_CLASS_CAST ((k), PULSE_TYPE_EXT_STREAM, PulseExtStreamClass))
-#define PULSE_IS_EXT_STREAM_CLASS(k)            \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), PULSE_TYPE_EXT_STREAM))
-#define PULSE_EXT_STREAM_GET_CLASS(o)           \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), PULSE_TYPE_EXT_STREAM, PulseExtStreamClass))
+#define PULSE_TYPE_EXT_STREAM (pulse_ext_stream_get_type())
+#define PULSE_EXT_STREAM(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), PULSE_TYPE_EXT_STREAM, PulseExtStream))
+#define PULSE_IS_EXT_STREAM(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), PULSE_TYPE_EXT_STREAM))
+#define PULSE_EXT_STREAM_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), PULSE_TYPE_EXT_STREAM, PulseExtStreamClass))
+#define PULSE_IS_EXT_STREAM_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), PULSE_TYPE_EXT_STREAM))
+#define PULSE_EXT_STREAM_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), PULSE_TYPE_EXT_STREAM, PulseExtStreamClass))
 
-typedef struct _PulseExtStreamClass    PulseExtStreamClass;
-typedef struct _PulseExtStreamPrivate  PulseExtStreamPrivate;
+typedef struct _PulseExtStreamClass PulseExtStreamClass;
+typedef struct _PulseExtStreamPrivate PulseExtStreamPrivate;
 
-struct _PulseExtStream
-{
-    MateMixerStoredControl parent;
+struct _PulseExtStream {
+  MateMixerStoredControl parent;
 
-    /*< private >*/
-    PulseExtStreamPrivate *priv;
+  /*< private >*/
+  PulseExtStreamPrivate *priv;
 };
 
-struct _PulseExtStreamClass
-{
-    MateMixerStoredControlClass parent_class;
+struct _PulseExtStreamClass {
+  MateMixerStoredControlClass parent_class;
 };
 
-GType           pulse_ext_stream_get_type (void) G_GNUC_CONST;
+GType pulse_ext_stream_get_type(void) G_GNUC_CONST;
 
-PulseExtStream *pulse_ext_stream_new      (PulseConnection                  *connection,
-                                           const pa_ext_stream_restore_info *info,
-                                           PulseStream                      *parent);
+PulseExtStream *pulse_ext_stream_new(PulseConnection *connection,
+                                     const pa_ext_stream_restore_info *info,
+                                     PulseStream *parent);
 
-void            pulse_ext_stream_update   (PulseExtStream                   *ext,
-                                           const pa_ext_stream_restore_info *info,
-                                           PulseStream                      *parent);
+void pulse_ext_stream_update(PulseExtStream *ext,
+                             const pa_ext_stream_restore_info *info,
+                             PulseStream *parent);
 
 G_END_DECLS
 

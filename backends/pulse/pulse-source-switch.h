@@ -18,44 +18,43 @@
 #ifndef PULSE_SOURCE_SWITCH_H
 #define PULSE_SOURCE_SWITCH_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 
 #include "pulse-types.h"
+#include "pulse-port-switch.h"
 
 G_BEGIN_DECLS
 
-#define PULSE_TYPE_SOURCE_SWITCH                \
-        (pulse_source_switch_get_type ())
-#define PULSE_SOURCE_SWITCH(o)                  \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), PULSE_TYPE_SOURCE_SWITCH, PulseSourceSwitch))
-#define PULSE_IS_SOURCE_SWITCH(o)               \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), PULSE_TYPE_SOURCE_SWITCH))
-#define PULSE_SOURCE_SWITCH_CLASS(k)            \
-        (G_TYPE_CHECK_CLASS_CAST ((k), PULSE_TYPE_SOURCE_SWITCH, PulseSourceSwitchClass))
-#define PULSE_IS_SOURCE_SWITCH_CLASS(k)         \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), PULSE_TYPE_SOURCE_SWITCH))
-#define PULSE_SOURCE_SWITCH_GET_CLASS(o)        \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), PULSE_TYPE_SOURCE_SWITCH, PulseSourceSwitchClass))
+#define PULSE_TYPE_SOURCE_SWITCH (pulse_source_switch_get_type())
+#define PULSE_SOURCE_SWITCH(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), PULSE_TYPE_SOURCE_SWITCH, PulseSourceSwitch))
+#define PULSE_IS_SOURCE_SWITCH(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), PULSE_TYPE_SOURCE_SWITCH))
+#define PULSE_SOURCE_SWITCH_CLASS(k)                      \
+  (G_TYPE_CHECK_CLASS_CAST((k), PULSE_TYPE_SOURCE_SWITCH, \
+                           PulseSourceSwitchClass))
+#define PULSE_IS_SOURCE_SWITCH_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), PULSE_TYPE_SOURCE_SWITCH))
+#define PULSE_SOURCE_SWITCH_GET_CLASS(o)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((o), PULSE_TYPE_SOURCE_SWITCH, \
+                             PulseSourceSwitchClass))
 
-typedef struct _PulseSourceSwitchClass    PulseSourceSwitchClass;
-typedef struct _PulseSourceSwitchPrivate  PulseSourceSwitchPrivate;
+typedef struct _PulseSourceSwitchClass PulseSourceSwitchClass;
+typedef struct _PulseSourceSwitchPrivate PulseSourceSwitchPrivate;
 
-struct _PulseSourceSwitch
-{
-    PulsePortSwitch parent;
+struct _PulseSourceSwitch {
+  PulsePortSwitch parent;
 };
 
-struct _PulseSourceSwitchClass
-{
-    PulsePortSwitchClass parent_class;
+struct _PulseSourceSwitchClass {
+  PulsePortSwitchClass parent_class;
 };
 
-GType            pulse_source_switch_get_type (void) G_GNUC_CONST;
+GType pulse_source_switch_get_type(void) G_GNUC_CONST;
 
-PulsePortSwitch *pulse_source_switch_new      (const gchar *name,
-                                               const gchar *label,
-                                               PulseSource *source);
+PulsePortSwitch *pulse_source_switch_new(const gchar *name, const gchar *label,
+                                         PulseSource *source);
 
 G_END_DECLS
 

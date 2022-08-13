@@ -18,8 +18,8 @@
 #ifndef ALSA_STREAM_INPUT_CONTROL_H
 #define ALSA_STREAM_INPUT_CONTROL_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 #include <libmatemixer/matemixer.h>
 
 #include "alsa-stream-control.h"
@@ -27,38 +27,37 @@
 
 G_BEGIN_DECLS
 
-#define ALSA_TYPE_STREAM_INPUT_CONTROL          \
-        (alsa_stream_input_control_get_type ())
-#define ALSA_STREAM_INPUT_CONTROL(o)            \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), ALSA_TYPE_STREAM_INPUT_CONTROL, AlsaStreamInputControl))
-#define ALSA_IS_STREAM_INPUT_CONTROL(o)         \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ALSA_TYPE_STREAM_INPUT_CONTROL))
-#define ALSA_STREAM_INPUT_CONTROL_CLASS(k)      \
-        (G_TYPE_CHECK_CLASS_CAST ((k), ALSA_TYPE_STREAM_INPUT_CONTROL, AlsaStreamInputControlClass))
-#define ALSA_IS_STREAM_INPUT_CONTROL_CLASS(k)   \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), ALSA_TYPE_STREAM_INPUT_CONTROL))
-#define ALSA_STREAM_INPUT_CONTROL_GET_CLASS(o)  \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), ALSA_TYPE_STREAM_INPUT_CONTROL, AlsaStreamInputControlClass))
+#define ALSA_TYPE_STREAM_INPUT_CONTROL (alsa_stream_input_control_get_type())
+#define ALSA_STREAM_INPUT_CONTROL(o)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), ALSA_TYPE_STREAM_INPUT_CONTROL, \
+                              AlsaStreamInputControl))
+#define ALSA_IS_STREAM_INPUT_CONTROL(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), ALSA_TYPE_STREAM_INPUT_CONTROL))
+#define ALSA_STREAM_INPUT_CONTROL_CLASS(k)                      \
+  (G_TYPE_CHECK_CLASS_CAST((k), ALSA_TYPE_STREAM_INPUT_CONTROL, \
+                           AlsaStreamInputControlClass))
+#define ALSA_IS_STREAM_INPUT_CONTROL_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), ALSA_TYPE_STREAM_INPUT_CONTROL))
+#define ALSA_STREAM_INPUT_CONTROL_GET_CLASS(o)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((o), ALSA_TYPE_STREAM_INPUT_CONTROL, \
+                             AlsaStreamInputControlClass))
 
-typedef struct _AlsaStreamInputControlClass    AlsaStreamInputControlClass;
-typedef struct _AlsaStreamInputControlPrivate  AlsaStreamInputControlPrivate;
+typedef struct _AlsaStreamInputControlClass AlsaStreamInputControlClass;
+typedef struct _AlsaStreamInputControlPrivate AlsaStreamInputControlPrivate;
 
-struct _AlsaStreamInputControl
-{
-    AlsaStreamControl parent;
+struct _AlsaStreamInputControl {
+  AlsaStreamControl parent;
 };
 
-struct _AlsaStreamInputControlClass
-{
-    AlsaStreamControlClass parent_class;
+struct _AlsaStreamInputControlClass {
+  AlsaStreamControlClass parent_class;
 };
 
-GType              alsa_stream_input_control_get_type (void) G_GNUC_CONST;
+GType alsa_stream_input_control_get_type(void) G_GNUC_CONST;
 
-AlsaStreamControl *alsa_stream_input_control_new      (const gchar               *name,
-                                                       const gchar               *label,
-                                                       MateMixerStreamControlRole role,
-                                                       AlsaStream                *stream);
+AlsaStreamControl *alsa_stream_input_control_new(
+    const gchar *name, const gchar *label, MateMixerStreamControlRole role,
+    AlsaStream *stream);
 
 G_END_DECLS
 

@@ -15,58 +15,44 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib.h>
-#include <glib-object.h>
-#include <libmatemixer/matemixer.h>
-
 #include "oss-switch-option.h"
 
-struct _OssSwitchOptionPrivate
-{
-    guint devnum;
+#include <glib-object.h>
+#include <glib.h>
+#include <libmatemixer/matemixer.h>
+
+struct _OssSwitchOptionPrivate {
+  guint devnum;
 };
 
-static void oss_switch_option_class_init (OssSwitchOptionClass *klass);
-static void oss_switch_option_init       (OssSwitchOption      *option);
+static void oss_switch_option_class_init(OssSwitchOptionClass *klass);
+static void oss_switch_option_init(OssSwitchOption *option);
 
-G_DEFINE_TYPE_WITH_PRIVATE (OssSwitchOption, oss_switch_option, MATE_MIXER_TYPE_SWITCH_OPTION)
+G_DEFINE_TYPE_WITH_PRIVATE(OssSwitchOption, oss_switch_option,
+                           MATE_MIXER_TYPE_SWITCH_OPTION)
 
-static void
-oss_switch_option_class_init (OssSwitchOptionClass *klass)
-{
+static void oss_switch_option_class_init(OssSwitchOptionClass *klass) {}
+
+static void oss_switch_option_init(OssSwitchOption *option) {
+  option->priv = oss_switch_option_get_instance_private(option);
 }
 
-static void
-oss_switch_option_init (OssSwitchOption *option)
-{
-    option->priv = oss_switch_option_get_instance_private (option);
+OssSwitchOption *oss_switch_option_new(const gchar *name, const gchar *label,
+                                       const gchar *icon, guint devnum) {
+  OssSwitchOption *option;
+
+  g_return_val_if_fail(name != NULL, NULL);
+  g_return_val_if_fail(label != NULL, NULL);
+
+  option = g_object_new(OSS_TYPE_SWITCH_OPTION, "name", name, "label", label,
+                        "icon", icon, NULL);
+
+  option->priv->devnum = devnum;
+  return option;
 }
 
-OssSwitchOption *
-oss_switch_option_new (const gchar *name,
-                       const gchar *label,
-                       const gchar *icon,
-                       guint        devnum)
-{
-    OssSwitchOption *option;
+guint oss_switch_option_get_devnum(OssSwitchOption *option) {
+  g_return_val_if_fail(OSS_IS_SWITCH_OPTION(option), 0);
 
-    g_return_val_if_fail (name  != NULL, NULL);
-    g_return_val_if_fail (label != NULL, NULL);
-
-    option = g_object_new (OSS_TYPE_SWITCH_OPTION,
-                           "name", name,
-                           "label", label,
-                           "icon", icon,
-                           NULL);
-
-    option->priv->devnum = devnum;
-    return option;
-}
-
-guint
-oss_switch_option_get_devnum (OssSwitchOption *option)
-{
-    g_return_val_if_fail (OSS_IS_SWITCH_OPTION (option), 0);
-
-    return option->priv->devnum;
+  return option->priv->devnum;
 }

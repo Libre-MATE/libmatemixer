@@ -18,9 +18,8 @@
 #ifndef PULSE_SOURCE_H
 #define PULSE_SOURCE_H
 
-#include <glib.h>
 #include <glib-object.h>
-
+#include <glib.h>
 #include <pulse/pulseaudio.h>
 
 #include "pulse-stream.h"
@@ -28,49 +27,42 @@
 
 G_BEGIN_DECLS
 
-#define PULSE_TYPE_SOURCE                       \
-        (pulse_source_get_type ())
-#define PULSE_SOURCE(o)                         \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), PULSE_TYPE_SOURCE, PulseSource))
-#define PULSE_IS_SOURCE(o)                      \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), PULSE_TYPE_SOURCE))
-#define PULSE_SOURCE_CLASS(k)                   \
-        (G_TYPE_CHECK_CLASS_CAST ((k), PULSE_TYPE_SOURCE, PulseSourceClass))
-#define PULSE_IS_SOURCE_CLASS(k)                \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), PULSE_TYPE_SOURCE))
-#define PULSE_SOURCE_GET_CLASS(o)               \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), PULSE_TYPE_SOURCE, PulseSourceClass))
+#define PULSE_TYPE_SOURCE (pulse_source_get_type())
+#define PULSE_SOURCE(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), PULSE_TYPE_SOURCE, PulseSource))
+#define PULSE_IS_SOURCE(o) (G_TYPE_CHECK_INSTANCE_TYPE((o), PULSE_TYPE_SOURCE))
+#define PULSE_SOURCE_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), PULSE_TYPE_SOURCE, PulseSourceClass))
+#define PULSE_IS_SOURCE_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), PULSE_TYPE_SOURCE))
+#define PULSE_SOURCE_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), PULSE_TYPE_SOURCE, PulseSourceClass))
 
-typedef struct _PulseSourceClass    PulseSourceClass;
-typedef struct _PulseSourcePrivate  PulseSourcePrivate;
+typedef struct _PulseSourceClass PulseSourceClass;
+typedef struct _PulseSourcePrivate PulseSourcePrivate;
 
-struct _PulseSource
-{
-    PulseStream parent;
+struct _PulseSource {
+  PulseStream parent;
 
-    /*< private >*/
-    PulseSourcePrivate *priv;
+  /*< private >*/
+  PulseSourcePrivate *priv;
 };
 
-struct _PulseSourceClass
-{
-    PulseStreamClass parent_class;
+struct _PulseSourceClass {
+  PulseStreamClass parent_class;
 };
 
-GType        pulse_source_get_type      (void) G_GNUC_CONST;
+GType pulse_source_get_type(void) G_GNUC_CONST;
 
-PulseSource *pulse_source_new           (PulseConnection             *connection,
-                                         const pa_source_info        *info,
-                                         PulseDevice                 *device);
+PulseSource *pulse_source_new(PulseConnection *connection,
+                              const pa_source_info *info, PulseDevice *device);
 
-gboolean     pulse_source_add_output    (PulseSource                 *source,
-                                         const pa_source_output_info *info);
+gboolean pulse_source_add_output(PulseSource *source,
+                                 const pa_source_output_info *info);
 
-void         pulse_source_remove_output (PulseSource                 *source,
-                                         guint32                      index);
+void pulse_source_remove_output(PulseSource *source, guint32 index);
 
-void         pulse_source_update        (PulseSource                 *source,
-                                         const pa_source_info        *info);
+void pulse_source_update(PulseSource *source, const pa_source_info *info);
 
 G_END_DECLS
 

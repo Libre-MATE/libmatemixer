@@ -20,12 +20,12 @@
 
 G_BEGIN_DECLS
 
-typedef struct _OssBackend          OssBackend;
-typedef struct _OssDevice           OssDevice;
-typedef struct _OssStream           OssStream;
-typedef struct _OssStreamControl    OssStreamControl;
-typedef struct _OssSwitch           OssSwitch;
-typedef struct _OssSwitchOption     OssSwitchOption;
+typedef struct _OssBackend OssBackend;
+typedef struct _OssDevice OssDevice;
+typedef struct _OssStream OssStream;
+typedef struct _OssStreamControl OssStreamControl;
+typedef struct _OssSwitch OssSwitch;
+typedef struct _OssSwitchOption OssSwitchOption;
 
 G_END_DECLS
 

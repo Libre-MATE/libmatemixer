@@ -39,11 +39,11 @@
  * State of a connection to a sound system.
  */
 typedef enum {
-    MATE_MIXER_STATE_IDLE,
-    MATE_MIXER_STATE_CONNECTING,
-    MATE_MIXER_STATE_READY,
-    MATE_MIXER_STATE_FAILED,
-    MATE_MIXER_STATE_UNKNOWN
+  MATE_MIXER_STATE_IDLE,
+  MATE_MIXER_STATE_CONNECTING,
+  MATE_MIXER_STATE_READY,
+  MATE_MIXER_STATE_FAILED,
+  MATE_MIXER_STATE_UNKNOWN
 } MateMixerState;
 
 /**
@@ -67,11 +67,11 @@ typedef enum {
  * Constants identifying a sound system backend.
  */
 typedef enum {
-    MATE_MIXER_BACKEND_UNKNOWN,
-    MATE_MIXER_BACKEND_PULSEAUDIO,
-    MATE_MIXER_BACKEND_ALSA,
-    MATE_MIXER_BACKEND_OSS,
-    MATE_MIXER_BACKEND_NULL
+  MATE_MIXER_BACKEND_UNKNOWN,
+  MATE_MIXER_BACKEND_PULSEAUDIO,
+  MATE_MIXER_BACKEND_ALSA,
+  MATE_MIXER_BACKEND_OSS,
+  MATE_MIXER_BACKEND_NULL
 } MateMixerBackendType;
 
 /**
@@ -79,28 +79,28 @@ typedef enum {
  * @MATE_MIXER_BACKEND_NO_FLAGS:
  *     No flags.
  * @MATE_MIXER_BACKEND_HAS_APPLICATION_CONTROLS:
- *     The sound system backend includes support for application stream controls,
- *     allowing per-application volume control.
+ *     The sound system backend includes support for application stream
+ * controls, allowing per-application volume control.
  * @MATE_MIXER_BACKEND_HAS_STORED_CONTROLS:
  *     The sound system backend includes support for stored controls. See the
  *     #MateMixerStoredControl description for more information.
  *     The presence of this flag does not guarantee that this feature is enabled
  *     in the sound system's configuration.
  * @MATE_MIXER_BACKEND_CAN_SET_DEFAULT_INPUT_STREAM:
- *     The sound system backend is able to change the current default input stream
- *     using the mate_mixer_context_set_default_input_stream() function.
+ *     The sound system backend is able to change the current default input
+ * stream using the mate_mixer_context_set_default_input_stream() function.
  * @MATE_MIXER_BACKEND_CAN_SET_DEFAULT_OUTPUT_STREAM:
- *     The sound system backend is able to change the current default output stream
- *     using the mate_mixer_context_set_default_output_stream() function.
+ *     The sound system backend is able to change the current default output
+ * stream using the mate_mixer_context_set_default_output_stream() function.
  *
  * Flags describing capabilities of a sound system.
  */
 typedef enum { /*< flags >*/
-    MATE_MIXER_BACKEND_NO_FLAGS                      = 0,
-    MATE_MIXER_BACKEND_HAS_APPLICATION_CONTROLS      = 1 << 0,
-    MATE_MIXER_BACKEND_HAS_STORED_CONTROLS           = 1 << 1,
-    MATE_MIXER_BACKEND_CAN_SET_DEFAULT_INPUT_STREAM  = 1 << 2,
-    MATE_MIXER_BACKEND_CAN_SET_DEFAULT_OUTPUT_STREAM = 1 << 3
+               MATE_MIXER_BACKEND_NO_FLAGS = 0,
+               MATE_MIXER_BACKEND_HAS_APPLICATION_CONTROLS = 1 << 0,
+               MATE_MIXER_BACKEND_HAS_STORED_CONTROLS = 1 << 1,
+               MATE_MIXER_BACKEND_CAN_SET_DEFAULT_INPUT_STREAM = 1 << 2,
+               MATE_MIXER_BACKEND_CAN_SET_DEFAULT_OUTPUT_STREAM = 1 << 3
 } MateMixerBackendFlags;
 
 /**
@@ -115,9 +115,9 @@ typedef enum { /*< flags >*/
  * Sound stream direction.
  */
 typedef enum {
-    MATE_MIXER_DIRECTION_UNKNOWN,
-    MATE_MIXER_DIRECTION_INPUT,
-    MATE_MIXER_DIRECTION_OUTPUT,
+  MATE_MIXER_DIRECTION_UNKNOWN,
+  MATE_MIXER_DIRECTION_INPUT,
+  MATE_MIXER_DIRECTION_OUTPUT,
 } MateMixerDirection;
 
 /**
@@ -125,26 +125,30 @@ typedef enum {
  * @MATE_MIXER_STREAM_CONTROL_NO_FLAGS:
  *     No flags.
  * @MATE_MIXER_STREAM_CONTROL_MUTE_READABLE:
- *     The stream control includes a mute toggle and allows reading the mute state.
+ *     The stream control includes a mute toggle and allows reading the mute
+ * state.
  * @MATE_MIXER_STREAM_CONTROL_MUTE_WRITABLE:
- *     The stream control includes a mute toggle and allows changing the mute state.
+ *     The stream control includes a mute toggle and allows changing the mute
+ * state.
  * @MATE_MIXER_STREAM_CONTROL_VOLUME_READABLE:
- *     The stream control includes a volume control and allows reading the volume.
+ *     The stream control includes a volume control and allows reading the
+ * volume.
  * @MATE_MIXER_STREAM_CONTROL_VOLUME_WRITABLE:
- *     The stream control includes a volume control and allows changing the volume.
+ *     The stream control includes a volume control and allows changing the
+ * volume.
  * @MATE_MIXER_STREAM_CONTROL_CAN_BALANCE:
- *     The stream control includes the necessary channel positions to allow left/right
- *     volume balancing.
+ *     The stream control includes the necessary channel positions to allow
+ * left/right volume balancing.
  * @MATE_MIXER_STREAM_CONTROL_CAN_FADE:
- *     The stream control includes the necessary channel positions to allow front/back
- *     volume fading.
+ *     The stream control includes the necessary channel positions to allow
+ * front/back volume fading.
  * @MATE_MIXER_STREAM_CONTROL_MOVABLE:
  *     It is possible to move the stream control to a different stream using the
- *     mate_mixer_stream_control_set_stream() function. See the function description
- *     for details.
+ *     mate_mixer_stream_control_set_stream() function. See the function
+ * description for details.
  * @MATE_MIXER_STREAM_CONTROL_HAS_DECIBEL:
- *     The stream controls supports decibel values and it is possible to successfully
- *     use the functions which operate on decibel values.
+ *     The stream controls supports decibel values and it is possible to
+ * successfully use the functions which operate on decibel values.
  * @MATE_MIXER_STREAM_CONTROL_HAS_MONITOR:
  *     The stream control supports peak level monitoring.
  * @MATE_MIXER_STREAM_CONTROL_STORED:
@@ -153,17 +157,17 @@ typedef enum {
  * Flags describing capabilities and properties of a stream control.
  */
 typedef enum {
-    MATE_MIXER_STREAM_CONTROL_NO_FLAGS        = 0,
-    MATE_MIXER_STREAM_CONTROL_MUTE_READABLE   = 1 << 0,
-    MATE_MIXER_STREAM_CONTROL_MUTE_WRITABLE   = 1 << 1,
-    MATE_MIXER_STREAM_CONTROL_VOLUME_READABLE = 1 << 2,
-    MATE_MIXER_STREAM_CONTROL_VOLUME_WRITABLE = 1 << 3,
-    MATE_MIXER_STREAM_CONTROL_CAN_BALANCE     = 1 << 4,
-    MATE_MIXER_STREAM_CONTROL_CAN_FADE        = 1 << 5,
-    MATE_MIXER_STREAM_CONTROL_MOVABLE         = 1 << 6,
-    MATE_MIXER_STREAM_CONTROL_HAS_DECIBEL     = 1 << 7,
-    MATE_MIXER_STREAM_CONTROL_HAS_MONITOR     = 1 << 8,
-    MATE_MIXER_STREAM_CONTROL_STORED          = 1 << 9
+  MATE_MIXER_STREAM_CONTROL_NO_FLAGS = 0,
+  MATE_MIXER_STREAM_CONTROL_MUTE_READABLE = 1 << 0,
+  MATE_MIXER_STREAM_CONTROL_MUTE_WRITABLE = 1 << 1,
+  MATE_MIXER_STREAM_CONTROL_VOLUME_READABLE = 1 << 2,
+  MATE_MIXER_STREAM_CONTROL_VOLUME_WRITABLE = 1 << 3,
+  MATE_MIXER_STREAM_CONTROL_CAN_BALANCE = 1 << 4,
+  MATE_MIXER_STREAM_CONTROL_CAN_FADE = 1 << 5,
+  MATE_MIXER_STREAM_CONTROL_MOVABLE = 1 << 6,
+  MATE_MIXER_STREAM_CONTROL_HAS_DECIBEL = 1 << 7,
+  MATE_MIXER_STREAM_CONTROL_HAS_MONITOR = 1 << 8,
+  MATE_MIXER_STREAM_CONTROL_STORED = 1 << 9
 } MateMixerStreamControlFlags;
 
 /**
@@ -196,19 +200,19 @@ typedef enum {
  *     Music volume control.
  */
 typedef enum {
-    MATE_MIXER_STREAM_CONTROL_ROLE_UNKNOWN,
-    MATE_MIXER_STREAM_CONTROL_ROLE_MASTER,
-    MATE_MIXER_STREAM_CONTROL_ROLE_APPLICATION,
-    MATE_MIXER_STREAM_CONTROL_ROLE_PCM,
-    MATE_MIXER_STREAM_CONTROL_ROLE_SPEAKER,
-    MATE_MIXER_STREAM_CONTROL_ROLE_MICROPHONE,
-    MATE_MIXER_STREAM_CONTROL_ROLE_PORT,
-    MATE_MIXER_STREAM_CONTROL_ROLE_BOOST,
-    MATE_MIXER_STREAM_CONTROL_ROLE_BASS,
-    MATE_MIXER_STREAM_CONTROL_ROLE_TREBLE,
-    MATE_MIXER_STREAM_CONTROL_ROLE_CD,
-    MATE_MIXER_STREAM_CONTROL_ROLE_VIDEO,
-    MATE_MIXER_STREAM_CONTROL_ROLE_MUSIC
+  MATE_MIXER_STREAM_CONTROL_ROLE_UNKNOWN,
+  MATE_MIXER_STREAM_CONTROL_ROLE_MASTER,
+  MATE_MIXER_STREAM_CONTROL_ROLE_APPLICATION,
+  MATE_MIXER_STREAM_CONTROL_ROLE_PCM,
+  MATE_MIXER_STREAM_CONTROL_ROLE_SPEAKER,
+  MATE_MIXER_STREAM_CONTROL_ROLE_MICROPHONE,
+  MATE_MIXER_STREAM_CONTROL_ROLE_PORT,
+  MATE_MIXER_STREAM_CONTROL_ROLE_BOOST,
+  MATE_MIXER_STREAM_CONTROL_ROLE_BASS,
+  MATE_MIXER_STREAM_CONTROL_ROLE_TREBLE,
+  MATE_MIXER_STREAM_CONTROL_ROLE_CD,
+  MATE_MIXER_STREAM_CONTROL_ROLE_VIDEO,
+  MATE_MIXER_STREAM_CONTROL_ROLE_MUSIC
 } MateMixerStreamControlRole;
 
 /**
@@ -244,18 +248,18 @@ typedef enum {
  * roles.
  */
 typedef enum {
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_UNKNOWN,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_VIDEO,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_MUSIC,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_GAME,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_EVENT,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_PHONE,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_ANIMATION,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_PRODUCTION,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_A11Y,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_TEST,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_ABSTRACT,
-    MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_FILTER
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_UNKNOWN,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_VIDEO,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_MUSIC,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_GAME,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_EVENT,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_PHONE,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_ANIMATION,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_PRODUCTION,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_A11Y,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_TEST,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_ABSTRACT,
+  MATE_MIXER_STREAM_CONTROL_MEDIA_ROLE_FILTER
 } MateMixerStreamControlMediaRole;
 
 /**
@@ -266,8 +270,8 @@ typedef enum {
  *     The switch changes the active sound device profile.
  */
 typedef enum {
-    MATE_MIXER_DEVICE_SWITCH_ROLE_UNKNOWN,
-    MATE_MIXER_DEVICE_SWITCH_ROLE_PROFILE,
+  MATE_MIXER_DEVICE_SWITCH_ROLE_UNKNOWN,
+  MATE_MIXER_DEVICE_SWITCH_ROLE_PROFILE,
 } MateMixerDeviceSwitchRole;
 
 /**
@@ -280,9 +284,9 @@ typedef enum {
  *     The switch changes the boost value.
  */
 typedef enum {
-    MATE_MIXER_STREAM_SWITCH_ROLE_UNKNOWN,
-    MATE_MIXER_STREAM_SWITCH_ROLE_PORT,
-    MATE_MIXER_STREAM_SWITCH_ROLE_BOOST
+  MATE_MIXER_STREAM_SWITCH_ROLE_UNKNOWN,
+  MATE_MIXER_STREAM_SWITCH_ROLE_PORT,
+  MATE_MIXER_STREAM_SWITCH_ROLE_BOOST
 } MateMixerStreamSwitchRole;
 
 /**
@@ -293,8 +297,8 @@ typedef enum {
  *     The switch is a #MateMixerStreamToggle.
  */
 typedef enum { /*< flags >*/
-    MATE_MIXER_STREAM_SWITCH_NO_FLAGS = 0,
-    MATE_MIXER_STREAM_SWITCH_TOGGLE   = 1 << 0,
+               MATE_MIXER_STREAM_SWITCH_NO_FLAGS = 0,
+               MATE_MIXER_STREAM_SWITCH_TOGGLE = 1 << 0,
 } MateMixerStreamSwitchFlags;
 
 /**
@@ -341,28 +345,28 @@ typedef enum { /*< flags >*/
  *     Top back (rear) center channel.
  */
 typedef enum {
-    MATE_MIXER_CHANNEL_UNKNOWN = 0,
-    MATE_MIXER_CHANNEL_MONO,
-    MATE_MIXER_CHANNEL_FRONT_LEFT,
-    MATE_MIXER_CHANNEL_FRONT_RIGHT,
-    MATE_MIXER_CHANNEL_FRONT_CENTER,
-    MATE_MIXER_CHANNEL_LFE,
-    MATE_MIXER_CHANNEL_BACK_LEFT,
-    MATE_MIXER_CHANNEL_BACK_RIGHT,
-    MATE_MIXER_CHANNEL_BACK_CENTER,
-    MATE_MIXER_CHANNEL_FRONT_LEFT_CENTER,
-    MATE_MIXER_CHANNEL_FRONT_RIGHT_CENTER,
-    MATE_MIXER_CHANNEL_SIDE_LEFT,
-    MATE_MIXER_CHANNEL_SIDE_RIGHT,
-    MATE_MIXER_CHANNEL_TOP_FRONT_LEFT,
-    MATE_MIXER_CHANNEL_TOP_FRONT_RIGHT,
-    MATE_MIXER_CHANNEL_TOP_FRONT_CENTER,
-    MATE_MIXER_CHANNEL_TOP_CENTER,
-    MATE_MIXER_CHANNEL_TOP_BACK_LEFT,
-    MATE_MIXER_CHANNEL_TOP_BACK_RIGHT,
-    MATE_MIXER_CHANNEL_TOP_BACK_CENTER,
-    /*< private >*/
-    MATE_MIXER_CHANNEL_MAX
+  MATE_MIXER_CHANNEL_UNKNOWN = 0,
+  MATE_MIXER_CHANNEL_MONO,
+  MATE_MIXER_CHANNEL_FRONT_LEFT,
+  MATE_MIXER_CHANNEL_FRONT_RIGHT,
+  MATE_MIXER_CHANNEL_FRONT_CENTER,
+  MATE_MIXER_CHANNEL_LFE,
+  MATE_MIXER_CHANNEL_BACK_LEFT,
+  MATE_MIXER_CHANNEL_BACK_RIGHT,
+  MATE_MIXER_CHANNEL_BACK_CENTER,
+  MATE_MIXER_CHANNEL_FRONT_LEFT_CENTER,
+  MATE_MIXER_CHANNEL_FRONT_RIGHT_CENTER,
+  MATE_MIXER_CHANNEL_SIDE_LEFT,
+  MATE_MIXER_CHANNEL_SIDE_RIGHT,
+  MATE_MIXER_CHANNEL_TOP_FRONT_LEFT,
+  MATE_MIXER_CHANNEL_TOP_FRONT_RIGHT,
+  MATE_MIXER_CHANNEL_TOP_FRONT_CENTER,
+  MATE_MIXER_CHANNEL_TOP_CENTER,
+  MATE_MIXER_CHANNEL_TOP_BACK_LEFT,
+  MATE_MIXER_CHANNEL_TOP_BACK_RIGHT,
+  MATE_MIXER_CHANNEL_TOP_BACK_CENTER,
+  /*< private >*/
+  MATE_MIXER_CHANNEL_MAX
 } MateMixerChannelPosition;
 
 #endif /* MATEMIXER_ENUMS_H */

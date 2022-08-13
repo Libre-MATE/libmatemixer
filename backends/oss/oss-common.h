@@ -18,22 +18,22 @@
 #ifndef OSS_COMMON_H
 #define OSS_COMMON_H
 
-#include "config.h"
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
 #include <fcntl.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
+#include "config.h"
+
 #ifdef HAVE_SYS_SOUNDCARD_H
-#  include <sys/soundcard.h>
+#include <sys/soundcard.h>
 #elif HAVE_SOUNDCARD_H
-#  include <soundcard.h>
+#include <soundcard.h>
 #elif HAVE_MACHINE_SOUNDCARD_H
-#  include <machine/soundcard.h>
+#include <machine/soundcard.h>
 #else
-#  error "No OSS header file present"
+#error "No OSS header file present"
 #endif
 
 #endif /* OSS_COMMON_H */

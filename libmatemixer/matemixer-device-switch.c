@@ -15,132 +15,112 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib.h>
+#include "matemixer-device-switch.h"
+
 #include <glib-object.h>
+#include <glib.h>
 
 #include "matemixer-device.h"
-#include "matemixer-enums.h"
 #include "matemixer-enum-types.h"
+#include "matemixer-enums.h"
 #include "matemixer-switch.h"
-#include "matemixer-device-switch.h"
 
 /**
  * SECTION:matemixer-device-switch
  * @include: libmatemixer/matemixer.h
  */
 
-struct _MateMixerDeviceSwitchPrivate
-{
-    MateMixerDevice          *device;
-    MateMixerDeviceSwitchRole role;
+struct _MateMixerDeviceSwitchPrivate {
+  MateMixerDevice *device;
+  MateMixerDeviceSwitchRole role;
 };
 
-enum {
-    PROP_0,
-    PROP_ROLE,
-    PROP_DEVICE,
-    N_PROPERTIES
+enum { PROP_0, PROP_ROLE, PROP_DEVICE, N_PROPERTIES };
+
+static GParamSpec *properties[N_PROPERTIES] = {
+    NULL,
 };
 
-static GParamSpec *properties[N_PROPERTIES] = { NULL, };
+static void mate_mixer_device_switch_get_property(GObject *object,
+                                                  guint param_id, GValue *value,
+                                                  GParamSpec *pspec);
+static void mate_mixer_device_switch_set_property(GObject *object,
+                                                  guint param_id,
+                                                  const GValue *value,
+                                                  GParamSpec *pspec);
 
-static void mate_mixer_device_switch_get_property (GObject                    *object,
-                                                   guint                       param_id,
-                                                   GValue                     *value,
-                                                   GParamSpec                 *pspec);
-static void mate_mixer_device_switch_set_property (GObject                    *object,
-                                                   guint                       param_id,
-                                                   const GValue               *value,
-                                                   GParamSpec                 *pspec);
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(MateMixerDeviceSwitch,
+                                    mate_mixer_device_switch,
+                                    MATE_MIXER_TYPE_SWITCH)
 
-G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (MateMixerDeviceSwitch, mate_mixer_device_switch, MATE_MIXER_TYPE_SWITCH)
+static void mate_mixer_device_switch_class_init(
+    MateMixerDeviceSwitchClass *klass) {
+  GObjectClass *object_class;
 
-static void
-mate_mixer_device_switch_class_init (MateMixerDeviceSwitchClass *klass)
-{
-    GObjectClass *object_class;
+  object_class = G_OBJECT_CLASS(klass);
+  object_class->get_property = mate_mixer_device_switch_get_property;
+  object_class->set_property = mate_mixer_device_switch_set_property;
 
-    object_class = G_OBJECT_CLASS (klass);
-    object_class->get_property = mate_mixer_device_switch_get_property;
-    object_class->set_property = mate_mixer_device_switch_set_property;
+  properties[PROP_ROLE] = g_param_spec_enum(
+      "role", "Role", "Role of the switch", MATE_MIXER_TYPE_DEVICE_SWITCH_ROLE,
+      MATE_MIXER_DEVICE_SWITCH_ROLE_UNKNOWN,
+      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
-    properties[PROP_ROLE] =
-        g_param_spec_enum ("role",
-                           "Role",
-                           "Role of the switch",
-                           MATE_MIXER_TYPE_DEVICE_SWITCH_ROLE,
-                           MATE_MIXER_DEVICE_SWITCH_ROLE_UNKNOWN,
-                           G_PARAM_READWRITE |
-                           G_PARAM_CONSTRUCT_ONLY |
-                           G_PARAM_STATIC_STRINGS);
+  properties[PROP_DEVICE] = g_param_spec_object(
+      "device", "Device", "Device owning the switch", MATE_MIXER_TYPE_DEVICE,
+      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
-    properties[PROP_DEVICE] =
-        g_param_spec_object ("device",
-                             "Device",
-                             "Device owning the switch",
-                             MATE_MIXER_TYPE_DEVICE,
-                             G_PARAM_READWRITE |
-                             G_PARAM_CONSTRUCT_ONLY |
-                             G_PARAM_STATIC_STRINGS);
-
-    g_object_class_install_properties (object_class, N_PROPERTIES, properties);
+  g_object_class_install_properties(object_class, N_PROPERTIES, properties);
 }
 
-static void
-mate_mixer_device_switch_get_property (GObject    *object,
-                                       guint       param_id,
-                                       GValue     *value,
-                                       GParamSpec *pspec)
-{
-    MateMixerDeviceSwitch *swtch;
+static void mate_mixer_device_switch_get_property(GObject *object,
+                                                  guint param_id, GValue *value,
+                                                  GParamSpec *pspec) {
+  MateMixerDeviceSwitch *swtch;
 
-    swtch = MATE_MIXER_DEVICE_SWITCH (object);
+  swtch = MATE_MIXER_DEVICE_SWITCH(object);
 
-    switch (param_id) {
+  switch (param_id) {
     case PROP_ROLE:
-        g_value_set_enum (value, swtch->priv->role);
-        break;
+      g_value_set_enum(value, swtch->priv->role);
+      break;
     case PROP_DEVICE:
-        g_value_set_object (value, swtch->priv->device);
-        break;
+      g_value_set_object(value, swtch->priv->device);
+      break;
     default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
-        break;
-    }
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, param_id, pspec);
+      break;
+  }
 }
 
-static void
-mate_mixer_device_switch_set_property (GObject      *object,
-                                       guint         param_id,
-                                       const GValue *value,
-                                       GParamSpec   *pspec)
-{
-    MateMixerDeviceSwitch *swtch;
+static void mate_mixer_device_switch_set_property(GObject *object,
+                                                  guint param_id,
+                                                  const GValue *value,
+                                                  GParamSpec *pspec) {
+  MateMixerDeviceSwitch *swtch;
 
-    swtch = MATE_MIXER_DEVICE_SWITCH (object);
+  swtch = MATE_MIXER_DEVICE_SWITCH(object);
 
-    switch (param_id) {
+  switch (param_id) {
     case PROP_ROLE:
-        swtch->priv->role = g_value_get_enum (value);
-        break;
+      swtch->priv->role = g_value_get_enum(value);
+      break;
     case PROP_DEVICE:
-        /* Construct-only object */
-        swtch->priv->device = g_value_get_object (value);
+      /* Construct-only object */
+      swtch->priv->device = g_value_get_object(value);
 
-        if (swtch->priv->device != NULL)
-            g_object_add_weak_pointer (G_OBJECT (swtch->priv->device),
-                                       (gpointer *) &swtch->priv->device);
-        break;
+      if (swtch->priv->device != NULL)
+        g_object_add_weak_pointer(G_OBJECT(swtch->priv->device),
+                                  (gpointer *)&swtch->priv->device);
+      break;
     default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
-        break;
-    }
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, param_id, pspec);
+      break;
+  }
 }
 
-static void
-mate_mixer_device_switch_init (MateMixerDeviceSwitch *swtch)
-{
-    swtch->priv = mate_mixer_device_switch_get_instance_private (swtch);
+static void mate_mixer_device_switch_init(MateMixerDeviceSwitch *swtch) {
+  swtch->priv = mate_mixer_device_switch_get_instance_private(swtch);
 }
 
 /**
@@ -151,22 +131,21 @@ mate_mixer_device_switch_init (MateMixerDeviceSwitch *swtch)
  *
  * Returns: the switch role.
  */
-MateMixerDeviceSwitchRole
-mate_mixer_device_switch_get_role (MateMixerDeviceSwitch *swtch)
-{
-    g_return_val_if_fail (MATE_MIXER_IS_DEVICE_SWITCH (swtch), MATE_MIXER_DEVICE_SWITCH_ROLE_UNKNOWN);
+MateMixerDeviceSwitchRole mate_mixer_device_switch_get_role(
+    MateMixerDeviceSwitch *swtch) {
+  g_return_val_if_fail(MATE_MIXER_IS_DEVICE_SWITCH(swtch),
+                       MATE_MIXER_DEVICE_SWITCH_ROLE_UNKNOWN);
 
-    return swtch->priv->role;
+  return swtch->priv->role;
 }
 
 /**
  * mate_mixer_device_switch_get_device:
  * @swtch: a #MateMixerDeviceSwitch
  */
-MateMixerDevice *
-mate_mixer_device_switch_get_device (MateMixerDeviceSwitch *swtch)
-{
-    g_return_val_if_fail (MATE_MIXER_IS_DEVICE_SWITCH (swtch), NULL);
+MateMixerDevice *mate_mixer_device_switch_get_device(
+    MateMixerDeviceSwitch *swtch) {
+  g_return_val_if_fail(MATE_MIXER_IS_DEVICE_SWITCH(swtch), NULL);
 
-    return swtch->priv->device;
+  return swtch->priv->device;
 }

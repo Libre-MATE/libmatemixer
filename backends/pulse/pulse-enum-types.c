@@ -16,6 +16,7 @@
  */
 
 #include "pulse-enum-types.h"
+
 #include "pulse-enums.h"
 
 /*
@@ -23,23 +24,22 @@
  * https://bugzilla.gnome.org/show_bug.cgi?id=621942
  */
 
-GType
-pulse_connection_state_get_type (void)
-{
-    static GType etype = 0;
+GType pulse_connection_state_get_type(void) {
+  static GType etype = 0;
 
-    if (etype == 0) {
-        static const GEnumValue values[] = {
-            { PULSE_CONNECTION_DISCONNECTED, "PULSE_CONNECTION_DISCONNECTED", "disconnected" },
-            { PULSE_CONNECTION_CONNECTING, "PULSE_CONNECTION_CONNECTING", "connecting" },
-            { PULSE_CONNECTION_AUTHORIZING, "PULSE_CONNECTION_AUTHORIZING", "authorizing" },
-            { PULSE_CONNECTION_LOADING, "PULSE_CONNECTION_LOADING", "loading" },
-            { PULSE_CONNECTION_CONNECTED, "PULSE_CONNECTION_CONNECTED", "connected" },
-            { 0, NULL, NULL }
-        };
-        etype = g_enum_register_static (
-            g_intern_static_string ("PulseConnectionState"),
-            values);
-    }
-    return etype;
+  if (etype == 0) {
+    static const GEnumValue values[] = {
+        {PULSE_CONNECTION_DISCONNECTED, "PULSE_CONNECTION_DISCONNECTED",
+         "disconnected"},
+        {PULSE_CONNECTION_CONNECTING, "PULSE_CONNECTION_CONNECTING",
+         "connecting"},
+        {PULSE_CONNECTION_AUTHORIZING, "PULSE_CONNECTION_AUTHORIZING",
+         "authorizing"},
+        {PULSE_CONNECTION_LOADING, "PULSE_CONNECTION_LOADING", "loading"},
+        {PULSE_CONNECTION_CONNECTED, "PULSE_CONNECTION_CONNECTED", "connected"},
+        {0, NULL, NULL}};
+    etype = g_enum_register_static(
+        g_intern_static_string("PulseConnectionState"), values);
+  }
+  return etype;
 }

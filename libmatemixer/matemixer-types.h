@@ -20,17 +20,17 @@
 
 G_BEGIN_DECLS
 
-typedef struct _MateMixerAppInfo        MateMixerAppInfo;
-typedef struct _MateMixerContext        MateMixerContext;
-typedef struct _MateMixerDevice         MateMixerDevice;
-typedef struct _MateMixerDeviceSwitch   MateMixerDeviceSwitch;
-typedef struct _MateMixerStoredControl  MateMixerStoredControl;
-typedef struct _MateMixerStream         MateMixerStream;
-typedef struct _MateMixerStreamControl  MateMixerStreamControl;
-typedef struct _MateMixerStreamSwitch   MateMixerStreamSwitch;
-typedef struct _MateMixerStreamToggle   MateMixerStreamToggle;
-typedef struct _MateMixerSwitch         MateMixerSwitch;
-typedef struct _MateMixerSwitchOption   MateMixerSwitchOption;
+typedef struct _MateMixerAppInfo MateMixerAppInfo;
+typedef struct _MateMixerContext MateMixerContext;
+typedef struct _MateMixerDevice MateMixerDevice;
+typedef struct _MateMixerDeviceSwitch MateMixerDeviceSwitch;
+typedef struct _MateMixerStoredControl MateMixerStoredControl;
+typedef struct _MateMixerStream MateMixerStream;
+typedef struct _MateMixerStreamControl MateMixerStreamControl;
+typedef struct _MateMixerStreamSwitch MateMixerStreamSwitch;
+typedef struct _MateMixerStreamToggle MateMixerStreamToggle;
+typedef struct _MateMixerSwitch MateMixerSwitch;
+typedef struct _MateMixerSwitchOption MateMixerSwitchOption;
 
 G_END_DECLS
 

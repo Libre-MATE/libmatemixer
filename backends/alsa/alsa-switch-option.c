@@ -15,56 +15,42 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib.h>
-#include <glib-object.h>
-#include <alsa/asoundlib.h>
-#include <libmatemixer/matemixer.h>
-
 #include "alsa-switch-option.h"
 
-struct _AlsaSwitchOptionPrivate
-{
-    guint id;
+#include <alsa/asoundlib.h>
+#include <glib-object.h>
+#include <glib.h>
+#include <libmatemixer/matemixer.h>
+
+struct _AlsaSwitchOptionPrivate {
+  guint id;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (AlsaSwitchOption, alsa_switch_option, MATE_MIXER_TYPE_SWITCH_OPTION)
+G_DEFINE_TYPE_WITH_PRIVATE(AlsaSwitchOption, alsa_switch_option,
+                           MATE_MIXER_TYPE_SWITCH_OPTION)
 
-static void
-alsa_switch_option_class_init (AlsaSwitchOptionClass *klass)
-{
+static void alsa_switch_option_class_init(AlsaSwitchOptionClass *klass) {}
+
+static void alsa_switch_option_init(AlsaSwitchOption *option) {
+  option->priv = alsa_switch_option_get_instance_private(option);
 }
 
-static void
-alsa_switch_option_init (AlsaSwitchOption *option)
-{
-    option->priv = alsa_switch_option_get_instance_private (option);
+AlsaSwitchOption *alsa_switch_option_new(const gchar *name, const gchar *label,
+                                         const gchar *icon, guint id) {
+  AlsaSwitchOption *option;
+
+  g_return_val_if_fail(name != NULL, NULL);
+  g_return_val_if_fail(label != NULL, NULL);
+
+  option = g_object_new(ALSA_TYPE_SWITCH_OPTION, "name", name, "label", label,
+                        "icon", icon, NULL);
+
+  option->priv->id = id;
+  return option;
 }
 
-AlsaSwitchOption *
-alsa_switch_option_new (const gchar *name,
-                        const gchar *label,
-                        const gchar *icon,
-                        guint        id)
-{
-    AlsaSwitchOption *option;
+guint alsa_switch_option_get_id(AlsaSwitchOption *option) {
+  g_return_val_if_fail(ALSA_IS_SWITCH_OPTION(option), 0);
 
-    g_return_val_if_fail (name  != NULL, NULL);
-    g_return_val_if_fail (label != NULL, NULL);
-
-    option = g_object_new (ALSA_TYPE_SWITCH_OPTION,
-                           "name", name,
-                           "label", label,
-                           "icon", icon,
-                           NULL);
-
-    option->priv->id = id;
-    return option;
-}
-
-guint
-alsa_switch_option_get_id (AlsaSwitchOption *option)
-{
-    g_return_val_if_fail (ALSA_IS_SWITCH_OPTION (option), 0);
-
-    return option->priv->id;
+  return option->priv->id;
 }

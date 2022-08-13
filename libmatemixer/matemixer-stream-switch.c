@@ -15,150 +15,124 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <glib.h>
-#include <glib-object.h>
+#include "matemixer-stream-switch.h"
 
-#include "matemixer-enums.h"
+#include <glib-object.h>
+#include <glib.h>
+
 #include "matemixer-enum-types.h"
+#include "matemixer-enums.h"
 #include "matemixer-stream.h"
 #include "matemixer-switch.h"
-#include "matemixer-stream-switch.h"
 
 /**
  * SECTION:matemixer-stream-switch
  * @include: libmatemixer/matemixer.h
  */
 
-struct _MateMixerStreamSwitchPrivate
-{
-    MateMixerStream           *stream;
-    MateMixerStreamSwitchFlags flags;
-    MateMixerStreamSwitchRole  role;
+struct _MateMixerStreamSwitchPrivate {
+  MateMixerStream *stream;
+  MateMixerStreamSwitchFlags flags;
+  MateMixerStreamSwitchRole role;
 };
 
-enum {
-    PROP_0,
-    PROP_FLAGS,
-    PROP_ROLE,
-    PROP_STREAM,
-    N_PROPERTIES
+enum { PROP_0, PROP_FLAGS, PROP_ROLE, PROP_STREAM, N_PROPERTIES };
+
+static GParamSpec *properties[N_PROPERTIES] = {
+    NULL,
 };
 
-static GParamSpec *properties[N_PROPERTIES] = { NULL, };
+static void mate_mixer_stream_switch_get_property(GObject *object,
+                                                  guint param_id, GValue *value,
+                                                  GParamSpec *pspec);
+static void mate_mixer_stream_switch_set_property(GObject *object,
+                                                  guint param_id,
+                                                  const GValue *value,
+                                                  GParamSpec *pspec);
 
-static void mate_mixer_stream_switch_get_property (GObject                    *object,
-                                                   guint                       param_id,
-                                                   GValue                     *value,
-                                                   GParamSpec                 *pspec);
-static void mate_mixer_stream_switch_set_property (GObject                    *object,
-                                                   guint                       param_id,
-                                                   const GValue               *value,
-                                                   GParamSpec                 *pspec);
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(MateMixerStreamSwitch,
+                                    mate_mixer_stream_switch,
+                                    MATE_MIXER_TYPE_SWITCH)
 
-G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (MateMixerStreamSwitch, mate_mixer_stream_switch, MATE_MIXER_TYPE_SWITCH)
+static void mate_mixer_stream_switch_class_init(
+    MateMixerStreamSwitchClass *klass) {
+  GObjectClass *object_class;
 
-static void
-mate_mixer_stream_switch_class_init (MateMixerStreamSwitchClass *klass)
-{
-    GObjectClass *object_class;
+  object_class = G_OBJECT_CLASS(klass);
+  object_class->get_property = mate_mixer_stream_switch_get_property;
+  object_class->set_property = mate_mixer_stream_switch_set_property;
 
-    object_class = G_OBJECT_CLASS (klass);
-    object_class->get_property = mate_mixer_stream_switch_get_property;
-    object_class->set_property = mate_mixer_stream_switch_set_property;
+  properties[PROP_FLAGS] = g_param_spec_flags(
+      "flags", "Flags", "Flags of the switch",
+      MATE_MIXER_TYPE_STREAM_SWITCH_FLAGS, MATE_MIXER_STREAM_SWITCH_NO_FLAGS,
+      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
-    properties[PROP_FLAGS] =
-        g_param_spec_flags ("flags",
-                            "Flags",
-                            "Flags of the switch",
-                            MATE_MIXER_TYPE_STREAM_SWITCH_FLAGS,
-                            MATE_MIXER_STREAM_SWITCH_NO_FLAGS,
-                            G_PARAM_READWRITE |
-                            G_PARAM_CONSTRUCT_ONLY |
-                            G_PARAM_STATIC_STRINGS);
+  properties[PROP_ROLE] = g_param_spec_enum(
+      "role", "Role", "Role of the switch", MATE_MIXER_TYPE_STREAM_SWITCH_ROLE,
+      MATE_MIXER_STREAM_SWITCH_ROLE_UNKNOWN,
+      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
-    properties[PROP_ROLE] =
-        g_param_spec_enum ("role",
-                           "Role",
-                           "Role of the switch",
-                           MATE_MIXER_TYPE_STREAM_SWITCH_ROLE,
-                           MATE_MIXER_STREAM_SWITCH_ROLE_UNKNOWN,
-                           G_PARAM_READWRITE |
-                           G_PARAM_CONSTRUCT_ONLY |
-                           G_PARAM_STATIC_STRINGS);
+  properties[PROP_STREAM] = g_param_spec_object(
+      "stream", "Stream", "Stream owning the switch", MATE_MIXER_TYPE_STREAM,
+      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
-    properties[PROP_STREAM] =
-        g_param_spec_object ("stream",
-                             "Stream",
-                             "Stream owning the switch",
-                             MATE_MIXER_TYPE_STREAM,
-                             G_PARAM_READWRITE |
-                             G_PARAM_CONSTRUCT_ONLY |
-                             G_PARAM_STATIC_STRINGS);
-
-    g_object_class_install_properties (object_class, N_PROPERTIES, properties);
+  g_object_class_install_properties(object_class, N_PROPERTIES, properties);
 }
 
-static void
-mate_mixer_stream_switch_get_property (GObject    *object,
-                                       guint       param_id,
-                                       GValue     *value,
-                                       GParamSpec *pspec)
-{
-    MateMixerStreamSwitch *swtch;
+static void mate_mixer_stream_switch_get_property(GObject *object,
+                                                  guint param_id, GValue *value,
+                                                  GParamSpec *pspec) {
+  MateMixerStreamSwitch *swtch;
 
-    swtch = MATE_MIXER_STREAM_SWITCH (object);
+  swtch = MATE_MIXER_STREAM_SWITCH(object);
 
-    switch (param_id) {
+  switch (param_id) {
     case PROP_FLAGS:
-        g_value_set_flags (value, swtch->priv->flags);
-        break;
+      g_value_set_flags(value, swtch->priv->flags);
+      break;
     case PROP_ROLE:
-        g_value_set_enum (value, swtch->priv->role);
-        break;
+      g_value_set_enum(value, swtch->priv->role);
+      break;
     case PROP_STREAM:
-        g_value_set_object (value, swtch->priv->stream);
-        break;
+      g_value_set_object(value, swtch->priv->stream);
+      break;
     default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
-        break;
-    }
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, param_id, pspec);
+      break;
+  }
 }
 
-static void
-mate_mixer_stream_switch_set_property (GObject      *object,
-                                       guint         param_id,
-                                       const GValue *value,
-                                       GParamSpec   *pspec)
-{
-    MateMixerStreamSwitch *swtch;
+static void mate_mixer_stream_switch_set_property(GObject *object,
+                                                  guint param_id,
+                                                  const GValue *value,
+                                                  GParamSpec *pspec) {
+  MateMixerStreamSwitch *swtch;
 
-    swtch = MATE_MIXER_STREAM_SWITCH (object);
+  swtch = MATE_MIXER_STREAM_SWITCH(object);
 
-    switch (param_id) {
+  switch (param_id) {
     case PROP_FLAGS:
-        swtch->priv->flags = g_value_get_flags (value);
-        break;
+      swtch->priv->flags = g_value_get_flags(value);
+      break;
     case PROP_ROLE:
-        swtch->priv->role = g_value_get_enum (value);
-        break;
+      swtch->priv->role = g_value_get_enum(value);
+      break;
     case PROP_STREAM:
-        /* Construct-only object */
-        swtch->priv->stream = g_value_get_object (value);
+      /* Construct-only object */
+      swtch->priv->stream = g_value_get_object(value);
 
-        if (swtch->priv->stream != NULL)
-            g_object_add_weak_pointer (G_OBJECT (swtch->priv->stream),
-                                       (gpointer *) &swtch->priv->stream);
-        break;
+      if (swtch->priv->stream != NULL)
+        g_object_add_weak_pointer(G_OBJECT(swtch->priv->stream),
+                                  (gpointer *)&swtch->priv->stream);
+      break;
     default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
-        break;
-    }
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, param_id, pspec);
+      break;
+  }
 }
 
-static void
-mate_mixer_stream_switch_init (MateMixerStreamSwitch *swtch)
-{
-    swtch->priv = mate_mixer_stream_switch_get_instance_private (swtch);
+static void mate_mixer_stream_switch_init(MateMixerStreamSwitch *swtch) {
+  swtch->priv = mate_mixer_stream_switch_get_instance_private(swtch);
 }
 
 /**
@@ -170,12 +144,12 @@ mate_mixer_stream_switch_init (MateMixerStreamSwitch *swtch)
  *
  * Returns: the flags of the switch.
  */
-MateMixerStreamSwitchFlags
-mate_mixer_stream_switch_get_flags (MateMixerStreamSwitch *swtch)
-{
-    g_return_val_if_fail (MATE_MIXER_IS_STREAM_SWITCH (swtch), MATE_MIXER_STREAM_SWITCH_NO_FLAGS);
+MateMixerStreamSwitchFlags mate_mixer_stream_switch_get_flags(
+    MateMixerStreamSwitch *swtch) {
+  g_return_val_if_fail(MATE_MIXER_IS_STREAM_SWITCH(swtch),
+                       MATE_MIXER_STREAM_SWITCH_NO_FLAGS);
 
-    return swtch->priv->flags;
+  return swtch->priv->flags;
 }
 
 /**
@@ -186,22 +160,21 @@ mate_mixer_stream_switch_get_flags (MateMixerStreamSwitch *swtch)
  *
  * Returns: the switch role.
  */
-MateMixerStreamSwitchRole
-mate_mixer_stream_switch_get_role (MateMixerStreamSwitch *swtch)
-{
-    g_return_val_if_fail (MATE_MIXER_IS_STREAM_SWITCH (swtch), MATE_MIXER_STREAM_SWITCH_ROLE_UNKNOWN);
+MateMixerStreamSwitchRole mate_mixer_stream_switch_get_role(
+    MateMixerStreamSwitch *swtch) {
+  g_return_val_if_fail(MATE_MIXER_IS_STREAM_SWITCH(swtch),
+                       MATE_MIXER_STREAM_SWITCH_ROLE_UNKNOWN);
 
-    return swtch->priv->role;
+  return swtch->priv->role;
 }
 
 /**
  * mate_mixer_stream_switch_get_stream:
  * @swtch: a #MateMixerStreamSwitch
  */
-MateMixerStream *
-mate_mixer_stream_switch_get_stream (MateMixerStreamSwitch *swtch)
-{
-    g_return_val_if_fail (MATE_MIXER_IS_STREAM_SWITCH (swtch), NULL);
+MateMixerStream *mate_mixer_stream_switch_get_stream(
+    MateMixerStreamSwitch *swtch) {
+  g_return_val_if_fail(MATE_MIXER_IS_STREAM_SWITCH(swtch), NULL);
 
-    return swtch->priv->stream;
+  return swtch->priv->stream;
 }

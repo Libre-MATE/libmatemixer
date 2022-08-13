@@ -24,27 +24,23 @@
 
 G_BEGIN_DECLS
 
-struct _MateMixerAppInfo
-{
-    gchar *name;
-    gchar *id;
-    gchar *version;
-    gchar *icon;
+struct _MateMixerAppInfo {
+  gchar *name;
+  gchar *id;
+  gchar *version;
+  gchar *icon;
 };
 
-MateMixerAppInfo *_mate_mixer_app_info_new         (void);
+MateMixerAppInfo *_mate_mixer_app_info_new(void);
 
-void              _mate_mixer_app_info_set_name    (MateMixerAppInfo *info,
-                                                    const gchar      *name);
-void              _mate_mixer_app_info_set_id      (MateMixerAppInfo *info,
-                                                    const gchar      *id);
-void              _mate_mixer_app_info_set_version (MateMixerAppInfo *info,
-                                                    const gchar      *version);
-void              _mate_mixer_app_info_set_icon    (MateMixerAppInfo *info,
-                                                    const gchar      *icon);
+void _mate_mixer_app_info_set_name(MateMixerAppInfo *info, const gchar *name);
+void _mate_mixer_app_info_set_id(MateMixerAppInfo *info, const gchar *id);
+void _mate_mixer_app_info_set_version(MateMixerAppInfo *info,
+                                      const gchar *version);
+void _mate_mixer_app_info_set_icon(MateMixerAppInfo *info, const gchar *icon);
 
-MateMixerAppInfo *_mate_mixer_app_info_copy        (MateMixerAppInfo *info);
-void              _mate_mixer_app_info_free        (MateMixerAppInfo *info);
+MateMixerAppInfo *_mate_mixer_app_info_copy(MateMixerAppInfo *info);
+void _mate_mixer_app_info_free(MateMixerAppInfo *info);
 
 G_END_DECLS
 

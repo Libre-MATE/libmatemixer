@@ -18,9 +18,8 @@
 #ifndef PULSE_SOURCE_CONTROL_H
 #define PULSE_SOURCE_CONTROL_H
 
-#include <glib.h>
 #include <glib-object.h>
-
+#include <glib.h>
 #include <pulse/pulseaudio.h>
 
 #include "pulse-stream-control.h"
@@ -28,40 +27,40 @@
 
 G_BEGIN_DECLS
 
-#define PULSE_TYPE_SOURCE_CONTROL                 \
-        (pulse_source_control_get_type ())
-#define PULSE_SOURCE_CONTROL(o)                   \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), PULSE_TYPE_SOURCE_CONTROL, PulseSourceControl))
-#define PULSE_IS_SOURCE_CONTROL(o)                \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), PULSE_TYPE_SOURCE_CONTROL))
-#define PULSE_SOURCE_CONTROL_CLASS(k)             \
-        (G_TYPE_CHECK_CLASS_CAST ((k), PULSE_TYPE_SOURCE_CONTROL, PulseSourceControlClass))
-#define PULSE_IS_SOURCE_CONTROL_CLASS(k)          \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), PULSE_TYPE_SOURCE_CONTROL))
-#define PULSE_SOURCE_CONTROL_GET_CLASS(o)         \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), PULSE_TYPE_SOURCE_CONTROL, PulseSourceControlClass))
+#define PULSE_TYPE_SOURCE_CONTROL (pulse_source_control_get_type())
+#define PULSE_SOURCE_CONTROL(o)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), PULSE_TYPE_SOURCE_CONTROL, \
+                              PulseSourceControl))
+#define PULSE_IS_SOURCE_CONTROL(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), PULSE_TYPE_SOURCE_CONTROL))
+#define PULSE_SOURCE_CONTROL_CLASS(k)                      \
+  (G_TYPE_CHECK_CLASS_CAST((k), PULSE_TYPE_SOURCE_CONTROL, \
+                           PulseSourceControlClass))
+#define PULSE_IS_SOURCE_CONTROL_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), PULSE_TYPE_SOURCE_CONTROL))
+#define PULSE_SOURCE_CONTROL_GET_CLASS(o)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((o), PULSE_TYPE_SOURCE_CONTROL, \
+                             PulseSourceControlClass))
 
-typedef struct _PulseSourceControlClass    PulseSourceControlClass;
-typedef struct _PulseSourceControlPrivate  PulseSourceControlPrivate;
+typedef struct _PulseSourceControlClass PulseSourceControlClass;
+typedef struct _PulseSourceControlPrivate PulseSourceControlPrivate;
 
-struct _PulseSourceControl
-{
-    PulseStreamControl parent;
+struct _PulseSourceControl {
+  PulseStreamControl parent;
 };
 
-struct _PulseSourceControlClass
-{
-    PulseStreamControlClass parent_class;
+struct _PulseSourceControlClass {
+  PulseStreamControlClass parent_class;
 };
 
-GType               pulse_source_control_get_type (void) G_GNUC_CONST;
+GType pulse_source_control_get_type(void) G_GNUC_CONST;
 
-PulseSourceControl *pulse_source_control_new      (PulseConnection      *connection,
-                                                   const pa_source_info *info,
-                                                   PulseSource          *source);
+PulseSourceControl *pulse_source_control_new(PulseConnection *connection,
+                                             const pa_source_info *info,
+                                             PulseSource *source);
 
-void                pulse_source_control_update   (PulseSourceControl   *control,
-                                                   const pa_source_info *info);
+void pulse_source_control_update(PulseSourceControl *control,
+                                 const pa_source_info *info);
 
 G_END_DECLS
 

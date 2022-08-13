@@ -18,9 +18,8 @@
 #ifndef PULSE_SINK_INPUT_H
 #define PULSE_SINK_INPUT_H
 
-#include <glib.h>
 #include <glib-object.h>
-
+#include <glib.h>
 #include <pulse/pulseaudio.h>
 
 #include "pulse-stream-control.h"
@@ -28,39 +27,36 @@
 
 G_BEGIN_DECLS
 
-#define PULSE_TYPE_SINK_INPUT                   \
-        (pulse_sink_input_get_type ())
-#define PULSE_SINK_INPUT(o)                     \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), PULSE_TYPE_SINK_INPUT, PulseSinkInput))
-#define PULSE_IS_SINK_INPUT(o)                  \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), PULSE_TYPE_SINK_INPUT))
-#define PULSE_SINK_INPUT_CLASS(k)               \
-        (G_TYPE_CHECK_CLASS_CAST ((k), PULSE_TYPE_SINK_INPUT, PulseSinkInputClass))
-#define PULSE_IS_SINK_INPUT_CLASS(k)            \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), PULSE_TYPE_SINK_INPUT))
-#define PULSE_SINK_INPUT_GET_CLASS(o)           \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), PULSE_TYPE_SINK_INPUT, PulseSinkInputClass))
+#define PULSE_TYPE_SINK_INPUT (pulse_sink_input_get_type())
+#define PULSE_SINK_INPUT(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), PULSE_TYPE_SINK_INPUT, PulseSinkInput))
+#define PULSE_IS_SINK_INPUT(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), PULSE_TYPE_SINK_INPUT))
+#define PULSE_SINK_INPUT_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), PULSE_TYPE_SINK_INPUT, PulseSinkInputClass))
+#define PULSE_IS_SINK_INPUT_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), PULSE_TYPE_SINK_INPUT))
+#define PULSE_SINK_INPUT_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), PULSE_TYPE_SINK_INPUT, PulseSinkInputClass))
 
-typedef struct _PulseSinkInputClass  PulseSinkInputClass;
+typedef struct _PulseSinkInputClass PulseSinkInputClass;
 
-struct _PulseSinkInput
-{
-    PulseStreamControl parent;
+struct _PulseSinkInput {
+  PulseStreamControl parent;
 };
 
-struct _PulseSinkInputClass
-{
-    PulseStreamControlClass parent_class;
+struct _PulseSinkInputClass {
+  PulseStreamControlClass parent_class;
 };
 
-GType           pulse_sink_input_get_type (void) G_GNUC_CONST;
+GType pulse_sink_input_get_type(void) G_GNUC_CONST;
 
-PulseSinkInput *pulse_sink_input_new      (PulseConnection          *connection,
-                                           const pa_sink_input_info *info,
-                                           PulseSink                *sink);
+PulseSinkInput *pulse_sink_input_new(PulseConnection *connection,
+                                     const pa_sink_input_info *info,
+                                     PulseSink *sink);
 
-void            pulse_sink_input_update   (PulseSinkInput           *input,
-                                           const pa_sink_input_info *info);
+void pulse_sink_input_update(PulseSinkInput *input,
+                             const pa_sink_input_info *info);
 
 G_END_DECLS
 

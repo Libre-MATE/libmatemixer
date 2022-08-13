@@ -19,8 +19,6 @@
 #define ALSA_COMPAT_H
 
 #define ALSA_PACK_VERSION(major, minor, subminor) \
-    (((major) << 16) |                            \
-     ((minor) << 8)  |                            \
-     (subminor))
+  (((major) << 16) | ((minor) << 8) | (subminor))
 
 #endif /* ALSA_COMPAT_H */

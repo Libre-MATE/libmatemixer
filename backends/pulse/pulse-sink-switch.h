@@ -18,44 +18,41 @@
 #ifndef PULSE_SINK_SWITCH_H
 #define PULSE_SINK_SWITCH_H
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 
 #include "pulse-types.h"
+#include "pulse-port-switch.h"
 
 G_BEGIN_DECLS
 
-#define PULSE_TYPE_SINK_SWITCH                  \
-        (pulse_sink_switch_get_type ())
-#define PULSE_SINK_SWITCH(o)                    \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), PULSE_TYPE_SINK_SWITCH, PulseSinkSwitch))
-#define PULSE_IS_SINK_SWITCH(o)                 \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), PULSE_TYPE_SINK_SWITCH))
-#define PULSE_SINK_SWITCH_CLASS(k)              \
-        (G_TYPE_CHECK_CLASS_CAST ((k), PULSE_TYPE_SINK_SWITCH, PulseSinkSwitchClass))
-#define PULSE_IS_SINK_SWITCH_CLASS(k)           \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), PULSE_TYPE_SINK_SWITCH))
-#define PULSE_SINK_SWITCH_GET_CLASS(o)          \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), PULSE_TYPE_SINK_SWITCH, PulseSinkSwitchClass))
+#define PULSE_TYPE_SINK_SWITCH (pulse_sink_switch_get_type())
+#define PULSE_SINK_SWITCH(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), PULSE_TYPE_SINK_SWITCH, PulseSinkSwitch))
+#define PULSE_IS_SINK_SWITCH(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), PULSE_TYPE_SINK_SWITCH))
+#define PULSE_SINK_SWITCH_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), PULSE_TYPE_SINK_SWITCH, PulseSinkSwitchClass))
+#define PULSE_IS_SINK_SWITCH_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), PULSE_TYPE_SINK_SWITCH))
+#define PULSE_SINK_SWITCH_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), PULSE_TYPE_SINK_SWITCH, PulseSinkSwitchClass))
 
-typedef struct _PulseSinkSwitchClass    PulseSinkSwitchClass;
-typedef struct _PulseSinkSwitchPrivate  PulseSinkSwitchPrivate;
+typedef struct _PulseSinkSwitchClass PulseSinkSwitchClass;
+typedef struct _PulseSinkSwitchPrivate PulseSinkSwitchPrivate;
 
-struct _PulseSinkSwitch
-{
-    PulsePortSwitch parent;
+struct _PulseSinkSwitch {
+  PulsePortSwitch parent;
 };
 
-struct _PulseSinkSwitchClass
-{
-    PulsePortSwitchClass parent_class;
+struct _PulseSinkSwitchClass {
+  PulsePortSwitchClass parent_class;
 };
 
-GType            pulse_sink_switch_get_type (void) G_GNUC_CONST;
+GType pulse_sink_switch_get_type(void) G_GNUC_CONST;
 
-PulsePortSwitch *pulse_sink_switch_new      (const gchar *name,
-                                             const gchar *label,
-                                             PulseSink   *sink);
+PulsePortSwitch *pulse_sink_switch_new(const gchar *name, const gchar *label,
+                                       PulseSink *sink);
 
 G_END_DECLS
 

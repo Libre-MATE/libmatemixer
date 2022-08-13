@@ -30,10 +30,12 @@ G_BEGIN_DECLS
  * library is greater than the required one.
  */
 #define LIBMATEMIXER_CHECK_VERSION(major, minor, micro) \
-        (LIBMATEMIXER_MAJOR_VERSION > (major) || \
-         (LIBMATEMIXER_MAJOR_VERSION == (major) && LIBMATEMIXER_MINOR_VERSION > (minor)) || \
-         (LIBMATEMIXER_MAJOR_VERSION == (major) && LIBMATEMIXER_MINOR_VERSION == (minor) && \
-          LIBMATEMIXER_MICRO_VERSION >= (micro)))
+  (LIBMATEMIXER_MAJOR_VERSION > (major) ||              \
+   (LIBMATEMIXER_MAJOR_VERSION == (major) &&            \
+    LIBMATEMIXER_MINOR_VERSION > (minor)) ||            \
+   (LIBMATEMIXER_MAJOR_VERSION == (major) &&            \
+    LIBMATEMIXER_MINOR_VERSION == (minor) &&            \
+    LIBMATEMIXER_MICRO_VERSION >= (micro)))
 
 G_END_DECLS
 

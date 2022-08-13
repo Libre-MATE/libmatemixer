@@ -18,9 +18,8 @@
 #ifndef PULSE_SINK_CONTROL_H
 #define PULSE_SINK_CONTROL_H
 
-#include <glib.h>
 #include <glib-object.h>
-
+#include <glib.h>
 #include <pulse/pulseaudio.h>
 
 #include "pulse-stream-control.h"
@@ -28,40 +27,38 @@
 
 G_BEGIN_DECLS
 
-#define PULSE_TYPE_SINK_CONTROL                 \
-        (pulse_sink_control_get_type ())
-#define PULSE_SINK_CONTROL(o)                   \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), PULSE_TYPE_SINK_CONTROL, PulseSinkControl))
-#define PULSE_IS_SINK_CONTROL(o)                \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), PULSE_TYPE_SINK_CONTROL))
-#define PULSE_SINK_CONTROL_CLASS(k)             \
-        (G_TYPE_CHECK_CLASS_CAST ((k), PULSE_TYPE_SINK_CONTROL, PulseSinkControlClass))
-#define PULSE_IS_SINK_CONTROL_CLASS(k)          \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), PULSE_TYPE_SINK_CONTROL))
-#define PULSE_SINK_CONTROL_GET_CLASS(o)         \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), PULSE_TYPE_SINK_CONTROL, PulseSinkControlClass))
+#define PULSE_TYPE_SINK_CONTROL (pulse_sink_control_get_type())
+#define PULSE_SINK_CONTROL(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), PULSE_TYPE_SINK_CONTROL, PulseSinkControl))
+#define PULSE_IS_SINK_CONTROL(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), PULSE_TYPE_SINK_CONTROL))
+#define PULSE_SINK_CONTROL_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), PULSE_TYPE_SINK_CONTROL, PulseSinkControlClass))
+#define PULSE_IS_SINK_CONTROL_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), PULSE_TYPE_SINK_CONTROL))
+#define PULSE_SINK_CONTROL_GET_CLASS(o)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((o), PULSE_TYPE_SINK_CONTROL, \
+                             PulseSinkControlClass))
 
-typedef struct _PulseSinkControlClass    PulseSinkControlClass;
-typedef struct _PulseSinkControlPrivate  PulseSinkControlPrivate;
+typedef struct _PulseSinkControlClass PulseSinkControlClass;
+typedef struct _PulseSinkControlPrivate PulseSinkControlPrivate;
 
-struct _PulseSinkControl
-{
-    PulseStreamControl parent;
+struct _PulseSinkControl {
+  PulseStreamControl parent;
 };
 
-struct _PulseSinkControlClass
-{
-    PulseStreamControlClass parent_class;
+struct _PulseSinkControlClass {
+  PulseStreamControlClass parent_class;
 };
 
-GType             pulse_sink_control_get_type (void) G_GNUC_CONST;
+GType pulse_sink_control_get_type(void) G_GNUC_CONST;
 
-PulseSinkControl *pulse_sink_control_new      (PulseConnection    *connection,
-                                               const pa_sink_info *info,
-                                               PulseSink          *sink);
+PulseSinkControl *pulse_sink_control_new(PulseConnection *connection,
+                                         const pa_sink_info *info,
+                                         PulseSink *sink);
 
-void              pulse_sink_control_update   (PulseSinkControl   *control,
-                                               const pa_sink_info *info);
+void pulse_sink_control_update(PulseSinkControl *control,
+                               const pa_sink_info *info);
 
 G_END_DECLS
 

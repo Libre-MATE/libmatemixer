@@ -18,29 +18,27 @@
 #ifndef MATEMIXER_STREAM_H
 #define MATEMIXER_STREAM_H
 
-#include <glib.h>
 #include <glib-object.h>
-
+#include <glib.h>
 #include <libmatemixer/matemixer-enums.h>
 #include <libmatemixer/matemixer-types.h>
 
 G_BEGIN_DECLS
 
-#define MATE_MIXER_TYPE_STREAM                  \
-        (mate_mixer_stream_get_type ())
-#define MATE_MIXER_STREAM(o)                    \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), MATE_MIXER_TYPE_STREAM, MateMixerStream))
-#define MATE_MIXER_IS_STREAM(o)                 \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), MATE_MIXER_TYPE_STREAM))
-#define MATE_MIXER_STREAM_CLASS(k)              \
-        (G_TYPE_CHECK_CLASS_CAST ((k), MATE_MIXER_TYPE_STREAM, MateMixerStreamClass))
-#define MATE_MIXER_IS_STREAM_CLASS(k)           \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), MATE_MIXER_TYPE_STREAM))
-#define MATE_MIXER_STREAM_GET_CLASS(o)          \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), MATE_MIXER_TYPE_STREAM, MateMixerStreamClass))
+#define MATE_MIXER_TYPE_STREAM (mate_mixer_stream_get_type())
+#define MATE_MIXER_STREAM(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), MATE_MIXER_TYPE_STREAM, MateMixerStream))
+#define MATE_MIXER_IS_STREAM(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), MATE_MIXER_TYPE_STREAM))
+#define MATE_MIXER_STREAM_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), MATE_MIXER_TYPE_STREAM, MateMixerStreamClass))
+#define MATE_MIXER_IS_STREAM_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), MATE_MIXER_TYPE_STREAM))
+#define MATE_MIXER_STREAM_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), MATE_MIXER_TYPE_STREAM, MateMixerStreamClass))
 
-typedef struct _MateMixerStreamClass    MateMixerStreamClass;
-typedef struct _MateMixerStreamPrivate  MateMixerStreamPrivate;
+typedef struct _MateMixerStreamClass MateMixerStreamClass;
+typedef struct _MateMixerStreamPrivate MateMixerStreamPrivate;
 
 /**
  * MateMixerStream:
@@ -48,12 +46,11 @@ typedef struct _MateMixerStreamPrivate  MateMixerStreamPrivate;
  * The #MateMixerStream structure contains only private data and should only
  * be accessed using the provided API.
  */
-struct _MateMixerStream
-{
-    GObject object;
+struct _MateMixerStream {
+  GObject object;
 
-    /*< private >*/
-    MateMixerStreamPrivate *priv;
+  /*< private >*/
+  MateMixerStreamPrivate *priv;
 };
 
 /**
@@ -62,48 +59,44 @@ struct _MateMixerStream
  *
  * The class structure for #MateMixerStream.
  */
-struct _MateMixerStreamClass
-{
-    GObjectClass parent_class;
+struct _MateMixerStreamClass {
+  GObjectClass parent_class;
 
-    /*< private >*/
-    MateMixerStreamControl *(*get_control)   (MateMixerStream *stream,
-                                              const gchar     *name);
-    MateMixerStreamSwitch  *(*get_switch)    (MateMixerStream *stream,
-                                              const gchar     *name);
+  /*< private >*/
+  MateMixerStreamControl *(*get_control)(MateMixerStream *stream,
+                                         const gchar *name);
+  MateMixerStreamSwitch *(*get_switch)(MateMixerStream *stream,
+                                       const gchar *name);
 
-    const GList            *(*list_controls) (MateMixerStream *stream);
-    const GList            *(*list_switches) (MateMixerStream *stream);
+  const GList *(*list_controls)(MateMixerStream *stream);
+  const GList *(*list_switches)(MateMixerStream *stream);
 
-    /* Signals */
-    void (*control_added)   (MateMixerStream *stream,
-                             const gchar     *name);
-    void (*control_removed) (MateMixerStream *stream,
-                             const gchar     *name);
+  /* Signals */
+  void (*control_added)(MateMixerStream *stream, const gchar *name);
+  void (*control_removed)(MateMixerStream *stream, const gchar *name);
 
-    void (*switch_added)    (MateMixerStream *stream,
-                             const gchar     *name);
-    void (*switch_removed)  (MateMixerStream *stream,
-                             const gchar     *name);
+  void (*switch_added)(MateMixerStream *stream, const gchar *name);
+  void (*switch_removed)(MateMixerStream *stream, const gchar *name);
 };
 
-GType                   mate_mixer_stream_get_type            (void) G_GNUC_CONST;
+GType mate_mixer_stream_get_type(void) G_GNUC_CONST;
 
-const gchar *           mate_mixer_stream_get_name            (MateMixerStream *stream);
-const gchar *           mate_mixer_stream_get_label           (MateMixerStream *stream);
+const gchar *mate_mixer_stream_get_name(MateMixerStream *stream);
+const gchar *mate_mixer_stream_get_label(MateMixerStream *stream);
 
-MateMixerDirection      mate_mixer_stream_get_direction       (MateMixerStream *stream);
+MateMixerDirection mate_mixer_stream_get_direction(MateMixerStream *stream);
 
-MateMixerDevice *       mate_mixer_stream_get_device          (MateMixerStream *stream);
-MateMixerStreamControl *mate_mixer_stream_get_control         (MateMixerStream *stream,
-                                                               const gchar     *name);
-MateMixerStreamSwitch * mate_mixer_stream_get_switch          (MateMixerStream *stream,
-                                                               const gchar     *name);
+MateMixerDevice *mate_mixer_stream_get_device(MateMixerStream *stream);
+MateMixerStreamControl *mate_mixer_stream_get_control(MateMixerStream *stream,
+                                                      const gchar *name);
+MateMixerStreamSwitch *mate_mixer_stream_get_switch(MateMixerStream *stream,
+                                                    const gchar *name);
 
-MateMixerStreamControl *mate_mixer_stream_get_default_control (MateMixerStream *stream);
+MateMixerStreamControl *mate_mixer_stream_get_default_control(
+    MateMixerStream *stream);
 
-const GList *           mate_mixer_stream_list_controls       (MateMixerStream *stream);
-const GList *           mate_mixer_stream_list_switches       (MateMixerStream *stream);
+const GList *mate_mixer_stream_list_controls(MateMixerStream *stream);
+const GList *mate_mixer_stream_list_switches(MateMixerStream *stream);
 
 G_END_DECLS
 

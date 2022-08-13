@@ -18,29 +18,27 @@
 #ifndef MATEMIXER_SWITCH_H
 #define MATEMIXER_SWITCH_H
 
-#include <glib.h>
 #include <glib-object.h>
-
+#include <glib.h>
 #include <libmatemixer/matemixer-enums.h>
 #include <libmatemixer/matemixer-types.h>
 
 G_BEGIN_DECLS
 
-#define MATE_MIXER_TYPE_SWITCH                  \
-        (mate_mixer_switch_get_type ())
-#define MATE_MIXER_SWITCH(o)                    \
-        (G_TYPE_CHECK_INSTANCE_CAST ((o), MATE_MIXER_TYPE_SWITCH, MateMixerSwitch))
-#define MATE_MIXER_IS_SWITCH(o)                 \
-        (G_TYPE_CHECK_INSTANCE_TYPE ((o), MATE_MIXER_TYPE_SWITCH))
-#define MATE_MIXER_SWITCH_CLASS(k)              \
-        (G_TYPE_CHECK_CLASS_CAST ((k), MATE_MIXER_TYPE_SWITCH, MateMixerSwitchClass))
-#define MATE_MIXER_IS_SWITCH_CLASS(k)           \
-        (G_TYPE_CHECK_CLASS_TYPE ((k), MATE_MIXER_TYPE_SWITCH))
-#define MATE_MIXER_SWITCH_GET_CLASS(o)          \
-        (G_TYPE_INSTANCE_GET_CLASS ((o), MATE_MIXER_TYPE_SWITCH, MateMixerSwitchClass))
+#define MATE_MIXER_TYPE_SWITCH (mate_mixer_switch_get_type())
+#define MATE_MIXER_SWITCH(o) \
+  (G_TYPE_CHECK_INSTANCE_CAST((o), MATE_MIXER_TYPE_SWITCH, MateMixerSwitch))
+#define MATE_MIXER_IS_SWITCH(o) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((o), MATE_MIXER_TYPE_SWITCH))
+#define MATE_MIXER_SWITCH_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_CAST((k), MATE_MIXER_TYPE_SWITCH, MateMixerSwitchClass))
+#define MATE_MIXER_IS_SWITCH_CLASS(k) \
+  (G_TYPE_CHECK_CLASS_TYPE((k), MATE_MIXER_TYPE_SWITCH))
+#define MATE_MIXER_SWITCH_GET_CLASS(o) \
+  (G_TYPE_INSTANCE_GET_CLASS((o), MATE_MIXER_TYPE_SWITCH, MateMixerSwitchClass))
 
-typedef struct _MateMixerSwitchClass    MateMixerSwitchClass;
-typedef struct _MateMixerSwitchPrivate  MateMixerSwitchPrivate;
+typedef struct _MateMixerSwitchClass MateMixerSwitchClass;
+typedef struct _MateMixerSwitchPrivate MateMixerSwitchPrivate;
 
 /**
  * MateMixerSwitch:
@@ -48,12 +46,11 @@ typedef struct _MateMixerSwitchPrivate  MateMixerSwitchPrivate;
  * The #MateMixerSwitch structure contains only private data and should only
  * be accessed using the provided API.
  */
-struct _MateMixerSwitch
-{
-    GObject object;
+struct _MateMixerSwitch {
+  GObject object;
 
-    /*< private >*/
-    MateMixerSwitchPrivate *priv;
+  /*< private >*/
+  MateMixerSwitchPrivate *priv;
 };
 
 /**
@@ -62,33 +59,33 @@ struct _MateMixerSwitch
  *
  * The class structure for #MateMixerSwitch.
  */
-struct _MateMixerSwitchClass
-{
-    GObjectClass parent_class;
+struct _MateMixerSwitchClass {
+  GObjectClass parent_class;
 
-    /*< private >*/
-    MateMixerSwitchOption *(*get_option)        (MateMixerSwitch       *swtch,
-                                                 const gchar           *name);
+  /*< private >*/
+  MateMixerSwitchOption *(*get_option)(MateMixerSwitch *swtch,
+                                       const gchar *name);
 
-    const GList           *(*list_options)      (MateMixerSwitch       *swtch);
+  const GList *(*list_options)(MateMixerSwitch *swtch);
 
-    gboolean               (*set_active_option) (MateMixerSwitch       *swtch,
-                                                 MateMixerSwitchOption *option);
+  gboolean (*set_active_option)(MateMixerSwitch *swtch,
+                                MateMixerSwitchOption *option);
 };
 
-GType                  mate_mixer_switch_get_type          (void) G_GNUC_CONST;
+GType mate_mixer_switch_get_type(void) G_GNUC_CONST;
 
-const gchar *          mate_mixer_switch_get_name          (MateMixerSwitch       *swtch);
-const gchar *          mate_mixer_switch_get_label         (MateMixerSwitch       *swtch);
+const gchar *mate_mixer_switch_get_name(MateMixerSwitch *swtch);
+const gchar *mate_mixer_switch_get_label(MateMixerSwitch *swtch);
 
-MateMixerSwitchOption *mate_mixer_switch_get_option        (MateMixerSwitch       *swtch,
-                                                            const gchar           *name);
+MateMixerSwitchOption *mate_mixer_switch_get_option(MateMixerSwitch *swtch,
+                                                    const gchar *name);
 
-const GList *          mate_mixer_switch_list_options      (MateMixerSwitch       *swtch);
+const GList *mate_mixer_switch_list_options(MateMixerSwitch *swtch);
 
-MateMixerSwitchOption *mate_mixer_switch_get_active_option (MateMixerSwitch       *swtch);
-gboolean               mate_mixer_switch_set_active_option (MateMixerSwitch       *swtch,
-                                                            MateMixerSwitchOption *option);
+MateMixerSwitchOption *mate_mixer_switch_get_active_option(
+    MateMixerSwitch *swtch);
+gboolean mate_mixer_switch_set_active_option(MateMixerSwitch *swtch,
+                                             MateMixerSwitchOption *option);
 
 G_END_DECLS
 

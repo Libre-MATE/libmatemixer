@@ -20,16 +20,16 @@
 
 G_BEGIN_DECLS
 
-typedef struct _AlsaBackend             AlsaBackend;
-typedef struct _AlsaDevice              AlsaDevice;
-typedef struct _AlsaElement             AlsaElement;
-typedef struct _AlsaStream              AlsaStream;
-typedef struct _AlsaStreamControl       AlsaStreamControl;
-typedef struct _AlsaStreamInputControl  AlsaStreamInputControl;
+typedef struct _AlsaBackend AlsaBackend;
+typedef struct _AlsaDevice AlsaDevice;
+typedef struct _AlsaElement AlsaElement;
+typedef struct _AlsaStream AlsaStream;
+typedef struct _AlsaStreamControl AlsaStreamControl;
+typedef struct _AlsaStreamInputControl AlsaStreamInputControl;
 typedef struct _AlsaStreamOutputControl AlsaStreamOutputControl;
-typedef struct _AlsaSwitch              AlsaSwitch;
-typedef struct _AlsaSwitchOption        AlsaSwitchOption;
-typedef struct _AlsaToggle              AlsaToggle;
+typedef struct _AlsaSwitch AlsaSwitch;
+typedef struct _AlsaSwitchOption AlsaSwitchOption;
+typedef struct _AlsaToggle AlsaToggle;
 
 G_END_DECLS
 
