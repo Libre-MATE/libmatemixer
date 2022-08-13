@@ -1,7 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.60])
-
 # =======================================================================
 # Versioning
 # =======================================================================
@@ -17,6 +15,7 @@ AC_INIT([libmatemixer],
         [https://github.com/Libre-MATE/libmatemixer/issues],
         [libmatemixer],
         [https://github.com/Libre-MATE/libmatemixer/])
+AC_PREREQ([2.60])
 
 # Before making a release, the LT_VERSION string should be modified.
 # The string is of the form C:R:A.
