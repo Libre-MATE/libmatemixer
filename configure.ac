@@ -54,7 +54,8 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_SRCDIR([libmatemixer/matemixer.c])
 
-AM_INIT_AUTOMAKE([1.11 no-dist-gzip dist-xz foreign tar-ustar silent-rules check-news])
+AM_INIT_AUTOMAKE([1.11 no-dist-gzip dist-xz foreign tar-ustar check-news])
+AM_SILENT_RULES([yes])
 
 # =======================================================================
 # Compiler warnings
