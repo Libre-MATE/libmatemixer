@@ -54,14 +54,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_SRCDIR([libmatemixer/matemixer.c])
 
-AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz foreign tar-ustar check-news])
-
-# Use pretty build output with automake >= 1.11
-# Disable by either passing --disable-silent-rules to configure or passing
-# V=1 to make
-m4_ifdef([AM_SILENT_RULES],
-         [AM_SILENT_RULES([yes])],
-         [AM_DEFAULT_VERBOSITY=1 AC_SUBST(AM_DEFAULT_VERBOSITY)])
+AM_INIT_AUTOMAKE([1.11 no-dist-gzip dist-xz foreign tar-ustar silent-rules check-news])
 
 # =======================================================================
 # Compiler warnings
