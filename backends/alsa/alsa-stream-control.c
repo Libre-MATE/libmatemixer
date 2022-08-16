@@ -504,10 +504,10 @@ static gboolean alsa_stream_control_set_balance(MateMixerStreamControl *mmsc,
 
   max = MAX(left, right);
   if (balance <= 0) {
-    nright = (balance + 1.0f) * max;
+    nright = max * (guint)(balance + 1.0f);
     nleft = max;
   } else {
-    nleft = (1.0f - balance) * max;
+    nleft = max * (guint)(1.0f - balance);
     nright = max;
   }
 
@@ -561,10 +561,10 @@ static gboolean alsa_stream_control_set_fade(MateMixerStreamControl *mmsc,
 
   max = MAX(front, back);
   if (fade <= 0) {
-    nback = (fade + 1.0f) * max;
+    nback = max * (guint)(fade + 1.0f);
     nfront = max;
   } else {
-    nfront = (1.0f - fade) * max;
+    nfront = max * (guint)(1.0f - fade);
     nback = max;
   }
 
