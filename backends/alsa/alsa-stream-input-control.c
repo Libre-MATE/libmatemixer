@@ -218,7 +218,7 @@ static gboolean alsa_stream_input_control_get_decibel_from_volume(
     return FALSE;
   }
 
-  *decibel = value / 100.0;
+  *decibel = ((gdouble)value) / 100.0;
   return TRUE;
 #else
   return FALSE;
@@ -248,8 +248,8 @@ static void read_volume_data(snd_mixer_elem_t *el, AlsaControlData *data) {
   /* This fails when decibels are not supported */
   ret = snd_mixer_selem_get_capture_dB_range(el, &min, &max);
   if (ret == 0) {
-    data->min_decibel = min / 100.0;
-    data->max_decibel = max / 100.0;
+    data->min_decibel = ((gdouble)min) / 100.0;
+    data->max_decibel = ((gdouble)max) / 100.0;
   } else
     data->min_decibel = data->max_decibel = -MATE_MIXER_INFINITY;
 #else
